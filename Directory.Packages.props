@@ -1,0 +1,12 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="Avalonia" Version="11.3.12" />
+        <PackageVersion Include="Avalonia.Themes.Simple" Version="11.3.12" />
+        <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.12" />
+        <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.3.12" />
+        <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.3.12" />
+    </ItemGroup>
+</Project>

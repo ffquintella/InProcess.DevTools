@@ -8,7 +8,7 @@ using Avalonia.Reactive;
 
 namespace Avalonia.Diagnostics.Views
 {
-    internal class LayoutExplorerView : UserControl
+    internal partial class LayoutExplorerView : UserControl
     {
         private readonly ThicknessEditor _borderArea;
         private readonly ThicknessEditor _paddingArea;
@@ -48,11 +48,6 @@ namespace Avalonia.Diagnostics.Views
                 visual = visual.VisualParent;
             }
             
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
 
         private void UpdateSizeGuidelines(AvaloniaPropertyChangedEventArgs _)
