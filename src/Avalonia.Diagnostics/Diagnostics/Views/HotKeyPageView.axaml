@@ -1,6 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:Avalonia.Diagnostics.ViewModels"
+             xmlns:vm="clr-namespace:Avalonia.Diagnostics.ViewModels;assembly=Avalonia.Diagnostics"
              Padding="4"
              x:Class="Avalonia.Diagnostics.Views.HotKeyPageView"
              x:DataType="vm:HotKeyPageViewModel">

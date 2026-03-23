@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Diagnostics.ViewModels;
+using Avalonia.Diagnostics.Views;
 
 namespace Avalonia.Diagnostics
 {
@@ -12,17 +13,15 @@ namespace Avalonia.Diagnostics
             if (data is null)
                 return null;
 
-            var name = data.GetType().FullName!.Replace("ViewModel", "View");
-            var type = Type.GetType(name);
-
-            if (type != null)
+            return data switch
             {
-                return (Control)Activator.CreateInstance(type)!;
-            }
-            else
-            {
-                return new TextBlock { Text = name };
-            }
+                ControlDetailsViewModel => new ControlDetailsView(),
+                EventsPageViewModel => new EventsPageView(),
+                HotKeyPageViewModel => new HotKeyPageView(),
+                MainViewModel => new MainView(),
+                TreePageViewModel => new TreePageView(),
+                _ => new TextBlock { Text = data.ToString() }
+            };
         }
 
         public bool Match(object? data)
