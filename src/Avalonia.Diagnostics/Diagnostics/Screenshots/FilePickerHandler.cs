@@ -7,7 +7,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Platform.Storage.FileIO;
 using Lifetimes = Avalonia.Controls.ApplicationLifetimes;
 
-namespace Avalonia.Diagnostics.Screenshots
+namespace InProcess.DevTools.Screenshots
 {
     /// <summary>
     /// Show a FileSavePicker to select where save screenshot

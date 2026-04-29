@@ -1,4 +1,4 @@
-﻿namespace Avalonia.Diagnostics;
+﻿namespace InProcess.DevTools;
 
 /// <summary>
 /// Kinds of diagnostic views available in DevTools

@@ -5,7 +5,7 @@ using Avalonia.Data;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     internal static class VisualExtensions
     {

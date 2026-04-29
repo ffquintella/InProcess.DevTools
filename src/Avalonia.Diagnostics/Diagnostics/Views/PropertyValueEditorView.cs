@@ -7,15 +7,15 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
-using Avalonia.Diagnostics.Controls;
-using Avalonia.Diagnostics.ViewModels;
+using InProcess.DevTools.Controls;
+using InProcess.DevTools.ViewModels;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml.Converters;
 using Avalonia.Media;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.Views
+namespace InProcess.DevTools.Views
 {
     internal class PropertyValueEditorView : UserControl
     {

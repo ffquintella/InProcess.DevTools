@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Linq;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     internal static class TypeExtesnions
     {

@@ -3,7 +3,7 @@ using Avalonia.Diagnostics.ViewModels;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 
-namespace Avalonia.Diagnostics.Views
+namespace InProcess.DevTools.Views
 {
     internal partial class ControlDetailsView : UserControl
     {

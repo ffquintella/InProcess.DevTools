@@ -2,7 +2,7 @@
 using Avalonia.Media;
 using Avalonia.Styling;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     /// <summary>
     /// Describes options used to customize DevTools.

@@ -4,7 +4,7 @@ using Avalonia.Input.Platform;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class BindingSetterViewModel : SetterViewModel
     {

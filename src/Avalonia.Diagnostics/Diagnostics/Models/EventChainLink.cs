@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia.Interactivity;
 
-namespace Avalonia.Diagnostics.Models
+namespace InProcess.DevTools.Models
 {
     internal class EventChainLink
     {

@@ -1,4 +1,4 @@
-﻿namespace Avalonia.Diagnostics
+﻿namespace InProcess.DevTools
 {
     internal static class Conventions
     {

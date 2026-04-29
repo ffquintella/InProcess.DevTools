@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Input;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal record HotKeyDescription(string Gesture, string BriefDescription, string? DetailedDescription = null);
 

@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Styling;
 
-namespace Avalonia.Diagnostics.Controls
+namespace InProcess.DevTools.Controls
 {
     internal class FilterTextBox : TextBox
     {

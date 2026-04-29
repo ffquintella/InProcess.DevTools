@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>$(AvsCurrentTargetFramework);$(AvsLegacyTargetFrameworks);netstandard2.0</TargetFrameworks>
     <RootNamespace>Avalonia</RootNamespace>
+    <AssemblyName>InProcess.DevTools</AssemblyName>
+    <PackageId>InProcess.DevTools</PackageId>
+    <PackageProjectUrl>https://github.com/ffquintella/InProcess.DevTools</PackageProjectUrl>
+    <PackageDescription>InProcess.DevTools - Avalonia 12+ compatible DevTools fork. Provides in-process developer tools for inspecting visual tree, styles, and properties.</PackageDescription>
+    <PackageTags>avalonia;devtools;diagnostics;debugging;inspector</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

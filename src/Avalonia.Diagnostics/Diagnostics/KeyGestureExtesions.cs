@@ -1,7 +1,7 @@
 ﻿using Avalonia.Input;
 using Avalonia.Input.Raw;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     internal static class KeyGestureExtesions
     {

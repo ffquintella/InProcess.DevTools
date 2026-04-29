@@ -9,7 +9,7 @@ using Avalonia.Reactive;
 using Lifetimes = Avalonia.Controls.ApplicationLifetimes;
 using System.Linq;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class VisualTreeNode : TreeNode
     {

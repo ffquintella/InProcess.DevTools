@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal static class ReactiveExtensions
     {

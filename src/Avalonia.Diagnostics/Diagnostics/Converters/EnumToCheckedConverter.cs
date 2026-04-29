@@ -3,7 +3,7 @@ using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 
-namespace Avalonia.Diagnostics.Converters
+namespace InProcess.DevTools.Converters
 {
     internal class EnumToCheckedConverter : IValueConverter
     {

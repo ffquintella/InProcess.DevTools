@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Media;
 
-namespace Avalonia.Diagnostics.Controls
+namespace InProcess.DevTools.Controls
 {
     internal class ThicknessEditor : ContentControl
     {

@@ -8,7 +8,7 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
-namespace Avalonia.Diagnostics.Controls
+namespace InProcess.DevTools.Controls
 {
     [TemplatePart("PART_ClearButton", typeof(Button))]
     partial class BrushEditor : TemplatedControl

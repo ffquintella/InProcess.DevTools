@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace Avalonia.Diagnostics.Views
+namespace InProcess.DevTools.Views
 {
     internal partial class HotKeyPageView : UserControl
     {

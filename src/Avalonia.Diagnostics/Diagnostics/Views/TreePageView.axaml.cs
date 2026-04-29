@@ -1,11 +1,11 @@
 using System.Text;
 using Avalonia.Controls;
-using Avalonia.Diagnostics.ViewModels;
+using InProcess.DevTools.ViewModels;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 
-namespace Avalonia.Diagnostics.Views
+namespace InProcess.DevTools.Views
 {
     internal partial class TreePageView : UserControl
     {

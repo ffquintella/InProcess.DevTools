@@ -2,7 +2,7 @@
 using System.Globalization;
 using Avalonia.Data.Converters;
 
-namespace Avalonia.Diagnostics.Converters
+namespace InProcess.DevTools.Converters
 {
     internal class BoolToOpacityConverter : IValueConverter
     {

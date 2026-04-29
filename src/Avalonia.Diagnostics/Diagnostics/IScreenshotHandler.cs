@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Avalonia.Controls;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     /// <summary>
     /// Allowed to define custom handler for Shreeshot

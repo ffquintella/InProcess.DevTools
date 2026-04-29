@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Avalonia.Diagnostics.ViewModels;
+namespace InProcess.DevTools.ViewModels;
 
 internal abstract class PropertyViewModel : ViewModelBase
 {

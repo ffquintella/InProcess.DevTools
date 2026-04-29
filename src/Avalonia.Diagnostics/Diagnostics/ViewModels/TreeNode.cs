@@ -7,7 +7,7 @@ using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal abstract class TreeNode : ViewModelBase, IDisposable
     {

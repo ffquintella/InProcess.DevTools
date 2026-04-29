@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Controls;
-using Avalonia.Diagnostics.Models;
+using InProcess.DevTools.Models;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class EventsPageViewModel : ViewModelBase
     {

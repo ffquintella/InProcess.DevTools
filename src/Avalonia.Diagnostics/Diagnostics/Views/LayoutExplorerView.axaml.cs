@@ -6,7 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.Views
+namespace InProcess.DevTools.Views
 {
     internal partial class LayoutExplorerView : UserControl
     {

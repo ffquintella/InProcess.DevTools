@@ -1,4 +1,4 @@
-﻿namespace Avalonia.Diagnostics.Behaviors
+﻿namespace InProcess.DevTools.Behaviors
 {
     /// <summary>
     /// See discussion https://github.com/AvaloniaUI/Avalonia/discussions/6773

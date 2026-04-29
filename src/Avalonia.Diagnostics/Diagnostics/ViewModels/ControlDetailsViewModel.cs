@@ -13,7 +13,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class ControlDetailsViewModel : ViewModelBase, IDisposable, IClassesChangedListener
     {

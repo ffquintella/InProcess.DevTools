@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Avalonia.Controls;
 
-namespace Avalonia.Diagnostics.Screenshots
+namespace InProcess.DevTools.Screenshots
 {
     /// <summary>
     /// Base class for render Screenshto to stream

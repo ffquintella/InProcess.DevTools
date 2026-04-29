@@ -1,6 +1,6 @@
 ﻿using Avalonia.Input;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     public class HotKeyConfiguration
     {

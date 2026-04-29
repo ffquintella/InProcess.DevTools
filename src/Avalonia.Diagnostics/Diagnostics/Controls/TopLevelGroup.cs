@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using Avalonia.Controls;
 
-namespace Avalonia.Diagnostics.Controls;
+namespace InProcess.DevTools.Controls;
 
 internal class TopLevelGroup : AvaloniaObject
 {

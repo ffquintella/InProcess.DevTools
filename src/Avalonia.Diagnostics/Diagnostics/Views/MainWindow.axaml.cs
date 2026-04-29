@@ -6,7 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Diagnostics;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
-using Avalonia.Diagnostics.ViewModels;
+using InProcess.DevTools.ViewModels;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
 using Avalonia.Markup.Xaml;
@@ -15,7 +15,7 @@ using Avalonia.Themes.Simple;
 using Avalonia.VisualTree;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.Views
+namespace InProcess.DevTools.Views
 {
     internal partial class MainWindow : Window, IStyleHost
     {

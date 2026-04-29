@@ -4,7 +4,7 @@ using System.Linq;
 using Avalonia.Collections;
 using Avalonia.Interactivity;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class EventOwnerTreeNode : EventTreeNodeBase
     {

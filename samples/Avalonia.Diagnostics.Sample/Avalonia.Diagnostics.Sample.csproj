@@ -13,6 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Avalonia.Diagnostics\Avalonia.Diagnostics.csproj" />
+      <ProjectReference Include="..\..\src\InProcess.DevTools\InProcess.DevTools.csproj" />
     </ItemGroup>
 </Project>

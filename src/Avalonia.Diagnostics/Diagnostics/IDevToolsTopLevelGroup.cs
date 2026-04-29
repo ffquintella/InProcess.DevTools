@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 
-namespace Avalonia.Diagnostics;
+namespace InProcess.DevTools;
 
 internal interface IDevToolsTopLevelGroup
 {

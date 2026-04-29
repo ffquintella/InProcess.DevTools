@@ -4,7 +4,7 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 
-namespace Avalonia.Diagnostics.Converters;
+namespace InProcess.DevTools.Converters;
 
 internal class BrushSelectorConveter : AvaloniaObject, IValueConverter
 {

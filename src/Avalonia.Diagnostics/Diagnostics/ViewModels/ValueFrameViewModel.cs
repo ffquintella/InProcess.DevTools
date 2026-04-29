@@ -7,7 +7,7 @@ using Avalonia.Input.Platform;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Styling;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class ValueFrameViewModel : ViewModelBase
     {

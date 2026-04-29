@@ -4,7 +4,7 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 
-namespace Avalonia.Diagnostics.Converters;
+namespace InProcess.DevTools
 
 internal class BoolToImageConverter : IValueConverter
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Avalonia.Diagnostics.Models;
+using InProcess.DevTools.Models;
 using Avalonia.Interactivity;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class FiredEvent : ViewModelBase
     {

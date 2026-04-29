@@ -5,7 +5,7 @@ using Avalonia.Data;
 using Avalonia.Utilities;
 using Avalonia.VisualTree;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     public static class VisualTreeDebug
     {

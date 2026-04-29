@@ -1,6 +1,6 @@
 ﻿using Avalonia.Input.Platform;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class SetterViewModel : ViewModelBase
     {

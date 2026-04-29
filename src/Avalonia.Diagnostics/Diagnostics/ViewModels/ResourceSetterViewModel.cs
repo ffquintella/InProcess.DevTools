@@ -1,7 +1,7 @@
 ﻿using Avalonia.Input.Platform;
 using Avalonia.Media;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class ResourceSetterViewModel : SetterViewModel
     {

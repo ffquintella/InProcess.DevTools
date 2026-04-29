@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 using Avalonia.Collections;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal abstract class TreeNodeCollection : IAvaloniaReadOnlyList<TreeNode>, IList, IDisposable
     {

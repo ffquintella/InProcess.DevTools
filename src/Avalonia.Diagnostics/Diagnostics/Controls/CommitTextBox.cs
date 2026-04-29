@@ -4,7 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
 
-namespace Avalonia.Diagnostics.Controls
+namespace InProcess.DevTools.Controls
 {
     //TODO: UpdateSourceTrigger & Binding.ValidationRules could help removing the need for this control.
     internal sealed class CommitTextBox : TextBox

@@ -1,12 +1,12 @@
 ﻿using System;
-using Avalonia.Diagnostics.Models;
-using Avalonia.Diagnostics.Views;
+using InProcess.DevTools.Models;
+using InProcess.DevTools.Views;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class EventTreeNode : EventTreeNodeBase
     {

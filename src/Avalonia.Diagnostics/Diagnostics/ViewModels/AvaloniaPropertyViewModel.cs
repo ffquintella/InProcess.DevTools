@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using Avalonia.Data;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class AvaloniaPropertyViewModel : PropertyViewModel
     {

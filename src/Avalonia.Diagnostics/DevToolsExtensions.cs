@@ -1,5 +1,5 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Diagnostics;
+using InProcess.DevTools;
 using Avalonia.Input;
 
 namespace Avalonia
@@ -69,7 +69,7 @@ namespace Avalonia
         ///          singleViewLifetime.MainView = new MainView();
         ///          
         ///       base.OnFrameworkInitializationCompleted();
-        ///       this.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()
+        ///       this.AttachDevTools(new InProcess.DevTools.DevToolsOptions()
         ///           {
         ///              StartupScreenIndex = 1,
         ///           });

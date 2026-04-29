@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Styling;
 using Lifetimes = Avalonia.Controls.ApplicationLifetimes;
 
-namespace Avalonia.Diagnostics.Controls
+namespace InProcess.DevTools.Controls
 {
     internal class Application : TopLevelGroup
        , Input.ICloseable, IDisposable

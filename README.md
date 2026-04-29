@@ -1,46 +1,115 @@
-[![NuGet](https://img.shields.io/nuget/v/Avalonia.Diagnostics.svg)](https://www.nuget.org/packages/Avalonia.Diagnostics/)
+# InProcess.DevTools
 
-# Avalonia.Diagnostics (Legacy)
+[![NuGet](https://img.shields.io/nuget/v/InProcess.DevTools.svg)](https://www.nuget.org/packages/InProcess.DevTools/)
 
-> **⚠️ This package is deprecated.** The legacy in-process DevTools have been replaced by the standalone [AvaloniaUI Developer Tools](https://docs.avaloniaui.net/tools/developer-tools/installation). Please migrate to the new tool — see the [migration guide](#migrating-to-developer-tools) below.
+> **Fork of Avalonia.Diagnostics** — This package brings the legacy in-process DevTools to **Avalonia 12+** while maintaining backward compatibility with code written for the original `Avalonia.Diagnostics` package.
 
-This repository is a read-only archive of the legacy `Avalonia.Diagnostics` package, previously part of the [Avalonia](https://github.com/AvaloniaUI/Avalonia) repository.
-It provided an in-process DevTools window for inspecting the visual tree, styles, and properties of Avalonia applications.
+## About This Fork
 
-## Migrating to Developer Tools
+The original `Avalonia.Diagnostics` package was deprecated and removed from recent Avalonia versions. This fork revives it for developers who:
+- Need in-process DevTools for debugging Avalonia applications
+- Want to maintain legacy code that depends on `Avalonia.Diagnostics`
+- Prefer the lightweight in-process DevTools over the standalone Developer Tools
 
-1. Remove the `Avalonia.Diagnostics` package:
-   ```
-   dotnet remove package Avalonia.Diagnostics
-   ```
+This package provides an in-process DevTools window for inspecting the visual tree, styles, properties, and events of Avalonia applications directly within your running app.
 
-2. Install the new diagnostics support package:
-   ```
-   dotnet add package AvaloniaUI.DiagnosticsSupport
-   ```
+## Installation
 
-3. Install the standalone Developer Tools:
-   ```
-   dotnet tool install --global AvaloniaUI.DeveloperTools
-   ```
+```bash
+dotnet add package InProcess.DevTools
+```
 
-4. Update your `Application` class:
-   ```csharp
-   public override void Initialize()
-   {
-       AvaloniaXamlLoader.Load(this);
-   #if DEBUG
-       this.AttachDeveloperTools();
-   #endif
-   }
-   ```
+## Quick Start
 
-5. Run your app and press **F12** to launch Developer Tools.
+### Attach DevTools to a Window
 
-The standalone Developer Tools includes a free **Community edition** that covers all features available in the legacy `Avalonia.Diagnostics` package — no license required.
+```csharp
+using Avalonia;
+using Avalonia.Controls;
 
-For full details, see the [Developer Tools documentation](https://docs.avaloniaui.net/tools/developer-tools/installation).
+public partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+
+#if DEBUG
+        this.AttachDevTools();  // Opens with F12 key
+#endif
+    }
+}
+```
+
+### Attach to Application
+
+```csharp
+public partial class App : Application
+{
+    public override void OnFrameworkInitializationCompleted()
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+        {
+            desktopLifetime.MainWindow = new MainWindow();
+        }
+
+        base.OnFrameworkInitializationCompleted();
+
+#if DEBUG
+        this.AttachDevTools();
+#endif
+    }
+}
+```
+
+### Custom Hotkey
+
+```csharp
+using Avalonia.Input;
+
+this.AttachDevTools(new KeyGesture(Key.F11, KeyModifiers.Control));  // Ctrl+F11
+```
+
+### Custom Options
+
+```csharp
+this.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()
+{
+    StartupScreenIndex = 1,  // Start on secondary monitor
+    ShowFpsCounter = true
+});
+```
+
+## Backward Compatibility
+
+The public API is **100% compatible** with the original `Avalonia.Diagnostics`:
+- All extension methods (`AttachDevTools`) work identically
+- All public types are accessible via the `Avalonia.Diagnostics` namespace
+- Existing code will compile without changes
+
+Internally, implementation types use the `InProcess.DevTools` namespace, but this is transparent to consumers.
+
+## Features
+
+- ✅ Visual Tree Inspector
+- ✅ Style Debugger
+- ✅ Property Inspector with live editing
+- ✅ Event Logger with filtering
+- ✅ Layout Explorer
+- ✅ Keyboard Shortcuts Configuration
+- ✅ Screenshot capture
+
+## Differences from Original
+
+- **Avalonia 12+ support** — Updated to work with current Avalonia versions
+- **Package name** — Published as `InProcess.DevTools` (but internal namespace preserves `Avalonia.Diagnostics` for compatibility)
+- **Bug fixes** — Minor compatibility improvements for modern Avalonia
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## See Also
+
+- [Original Avalonia Repository](https://github.com/AvaloniaUI/Avalonia)
+- [Standalone AvaloniaUI Developer Tools](https://docs.avaloniaui.net/tools/developer-tools/installation)
+

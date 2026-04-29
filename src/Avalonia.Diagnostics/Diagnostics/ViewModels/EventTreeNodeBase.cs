@@ -1,6 +1,6 @@
 ﻿using Avalonia.Collections;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal abstract class EventTreeNodeBase : ViewModelBase
     {

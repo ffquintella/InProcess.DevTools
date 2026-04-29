@@ -5,7 +5,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.Controls;
+namespace InProcess.DevTools.Controls;
 
 internal class ControlHighlightAdorner : Control
 {

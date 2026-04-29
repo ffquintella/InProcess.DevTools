@@ -6,7 +6,7 @@ using Lifetimes = Avalonia.Controls.ApplicationLifetimes;
 using System.Linq;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class LogicalTreeNode : TreeNode
     {

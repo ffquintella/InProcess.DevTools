@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using Avalonia.Controls;
-using Avalonia.Diagnostics.Views;
+using InProcess.DevTools.Views;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
 using Avalonia.Interactivity;
 using Avalonia.Reactive;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     internal static class DevTools
     {

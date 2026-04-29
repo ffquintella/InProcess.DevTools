@@ -10,7 +10,7 @@ using Avalonia.Rendering;
 using System.Collections.Generic;
 using Avalonia.Media;
 
-namespace Avalonia.Diagnostics.ViewModels
+namespace InProcess.DevTools.ViewModels
 {
     internal class MainViewModel : ViewModelBase, IDisposable
     {

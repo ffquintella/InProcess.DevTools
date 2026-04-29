@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia.Input;
 
-namespace Avalonia.Diagnostics;
+namespace InProcess.DevTools;
 
 /// <summary>
 /// Contains data formats related to dev tools.

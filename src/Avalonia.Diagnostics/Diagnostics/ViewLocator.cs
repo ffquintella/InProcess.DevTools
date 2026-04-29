@@ -1,10 +1,10 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Avalonia.Diagnostics.ViewModels;
-using Avalonia.Diagnostics.Views;
+using InProcess.DevTools.ViewModels;
+using InProcess.DevTools.Views;
 
-namespace Avalonia.Diagnostics
+namespace InProcess.DevTools
 {
     internal class ViewLocator : IDataTemplate
     {
