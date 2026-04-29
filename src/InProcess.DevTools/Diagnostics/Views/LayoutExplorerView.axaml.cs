@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Diagnostics.Controls;
+using InProcess.DevTools.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 using Avalonia.Reactive;

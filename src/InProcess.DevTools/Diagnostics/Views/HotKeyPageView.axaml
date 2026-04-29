@@ -1,8 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:Avalonia.Diagnostics.ViewModels;assembly=Avalonia.Diagnostics"
+             xmlns:vm="clr-namespace:InProcess.DevTools.ViewModels;assembly=InProcess.DevTools"
              Padding="4"
-             x:Class="Avalonia.Diagnostics.Views.HotKeyPageView"
+             x:Class="InProcess.DevTools.Views.HotKeyPageView"
              x:DataType="vm:HotKeyPageViewModel">
   <Grid RowDefinitions="auto,*" Grid.IsSharedSizeScope="True">
     <Grid>

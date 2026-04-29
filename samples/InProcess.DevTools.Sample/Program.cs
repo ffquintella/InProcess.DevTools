@@ -1,7 +1,7 @@
-﻿using Avalonia;
+using Avalonia;
 using System;
 
-namespace Avalonia.Diagnostics.Sample;
+namespace InProcess.DevTools.Sample;
 
 class Program
 {

@@ -1,9 +1,9 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Avalonia.Diagnostics.Views.LayoutExplorerView"
-             xmlns:controls="clr-namespace:Avalonia.Diagnostics.Controls;assembly=Avalonia.Diagnostics"
-             xmlns:converters="clr-namespace:Avalonia.Diagnostics.Converters;assembly=Avalonia.Diagnostics"
-             xmlns:viewModels="clr-namespace:Avalonia.Diagnostics.ViewModels;assembly=Avalonia.Diagnostics"
+             x:Class="InProcess.DevTools.Views.LayoutExplorerView"
+             xmlns:controls="clr-namespace:InProcess.DevTools.Controls;assembly=InProcess.DevTools"
+             xmlns:converters="clr-namespace:InProcess.DevTools.Converters;assembly=InProcess.DevTools"
+             xmlns:viewModels="clr-namespace:InProcess.DevTools.ViewModels;assembly=InProcess.DevTools"
              x:DataType="viewModels:ControlLayoutViewModel">
 
     <UserControl.Resources>

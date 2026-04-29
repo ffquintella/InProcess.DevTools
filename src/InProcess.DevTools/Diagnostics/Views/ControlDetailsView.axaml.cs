@@ -1,5 +1,5 @@
 using Avalonia.Controls;
-using Avalonia.Diagnostics.ViewModels;
+using InProcess.DevTools.ViewModels;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 

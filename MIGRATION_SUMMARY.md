@@ -1,14 +1,14 @@
-# Avalonia.Diagnostics → InProcess.DevTools Migration Summary
+# InProcess.DevTools → InProcess.DevTools Migration Summary
 
 ## ✅ Completed Tasks
 
 ### 1. **Namespace Rename** (60+ files)
-- All implementation namespaces changed from `Avalonia.Diagnostics.*` → `InProcess.DevTools.*`
+- All implementation namespaces changed from `InProcess.DevTools.*` → `InProcess.DevTools.*`
 - Subdomain namespaces updated:
-  - `Avalonia.Diagnostics.ViewModels` → `InProcess.DevTools.ViewModels`
-  - `Avalonia.Diagnostics.Views` → `InProcess.DevTools.Views`
-  - `Avalonia.Diagnostics.Controls` → `InProcess.DevTools.Controls`
-  - `Avalonia.Diagnostics.Converters` → `InProcess.DevTools.Converters`
+  - `InProcess.DevTools.ViewModels` → `InProcess.DevTools.ViewModels`
+  - `InProcess.DevTools.Views` → `InProcess.DevTools.Views`
+  - `InProcess.DevTools.Controls` → `InProcess.DevTools.Controls`
+  - `InProcess.DevTools.Converters` → `InProcess.DevTools.Converters`
   - Plus: Behaviors, Models, Screenshots, etc.
 
 ### 2. **Using Statements Updated**
@@ -28,7 +28,7 @@
 ### 5. **Documentation**
 - **README.md**: Completely rewritten explaining:
   - This is a fork for Avalonia 12+ support
-  - Backward compatibility with original `Avalonia.Diagnostics`
+  - Backward compatibility with original `InProcess.DevTools`
   - Usage examples
   - Feature list
 - **RENAME_INSTRUCTIONS.md**: Detailed technical guide of all changes
@@ -40,7 +40,7 @@
 // All these continue to work without any changes:
 this.AttachDevTools();                                    // ✅
 this.AttachDevTools(new KeyGesture(Key.F12));           // ✅
-app.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()); // ✅
+app.AttachDevTools(new InProcess.DevTools.DevToolsOptions()); // ✅
 ```
 
 ### Why?
@@ -65,10 +65,10 @@ app.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()); // ✅
 
 | Property | Before | After |
 |----------|--------|-------|
-| Package ID | `Avalonia.Diagnostics` | `InProcess.DevTools` |
-| Assembly Name | `Avalonia.Diagnostics` | `InProcess.DevTools` |
+| Package ID | `InProcess.DevTools` | `InProcess.DevTools` |
+| Assembly Name | `InProcess.DevTools` | `InProcess.DevTools` |
 | Root Namespace | `Avalonia` | `Avalonia` (unchanged) |
-| NuGet Package | `Avalonia.Diagnostics` | `InProcess.DevTools` |
+| NuGet Package | `InProcess.DevTools` | `InProcess.DevTools` |
 
 ## 🔗 Public API Status
 
@@ -80,25 +80,25 @@ app.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()); // ✅
 - ✅ `Application.AttachDevTools(DevToolsOptions)`
 
 ### Public Types (Accessible but Namespace Changed)
-- `DevToolsOptions` (from `Avalonia.Diagnostics` namespace)
+- `DevToolsOptions` (from `InProcess.DevTools` namespace)
 - `DevToolsViewKind`
 - `HotKeyConfiguration`
 
 ## 🚀 Next Steps
 
 ### For Users Migrating from Original Package
-1. Uninstall: `dotnet remove package Avalonia.Diagnostics`
+1. Uninstall: `dotnet remove package InProcess.DevTools`
 2. Install: `dotnet add package InProcess.DevTools`
 3. No code changes needed! Existing API calls work as-is.
 
 ### For Development
-1. Build: `dotnet build .\Avalonia.Diagnostics.slnx -c Debug`
-2. Pack: `dotnet pack src/Avalonia.Diagnostics/Avalonia.Diagnostics.csproj -c Release`
+1. Build: `dotnet build .\InProcess.DevTools.slnx -c Debug`
+2. Pack: `dotnet pack src/InProcess.DevTools/InProcess.DevTools.csproj -c Release`
 3. Publish: Upload `.nupkg` to NuGet with version increment
 
 ## 📝 Notes
 
-- The source folder path (`src/Avalonia.Diagnostics/`) was kept unchanged for simplicity
-- Project file names remain unchanged (`Avalonia.Diagnostics.csproj`)
+- The source folder path (`src/InProcess.DevTools/`) was kept unchanged for simplicity
+- Project file names remain unchanged (`InProcess.DevTools.csproj`)
 - Only external-facing names changed (assembly, package, namespaces)
 - This preserves git history while achieving the rename goal

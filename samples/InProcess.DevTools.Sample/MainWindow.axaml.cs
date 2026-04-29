@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Avalonia.Diagnostics.Sample;
+namespace InProcess.DevTools.Sample;
 
 public partial class MainWindow : Window
 {

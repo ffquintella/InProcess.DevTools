@@ -1,7 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:Avalonia.Diagnostics.ViewModels;assembly=Avalonia.Diagnostics"
-             x:Class="Avalonia.Diagnostics.Views.TreePageView"
+             xmlns:vm="clr-namespace:InProcess.DevTools.ViewModels;assembly=InProcess.DevTools"
+             x:Class="InProcess.DevTools.Views.TreePageView"
              x:DataType="vm:TreePageViewModel">
   <Grid ColumnDefinitions="0.35*,4,0.65*">
     <TreeView Name="tree"

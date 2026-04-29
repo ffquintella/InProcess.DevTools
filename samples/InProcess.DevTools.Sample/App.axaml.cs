@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace Avalonia.Diagnostics.Sample;
+namespace InProcess.DevTools.Sample;
 
 public partial class App : Application
 {

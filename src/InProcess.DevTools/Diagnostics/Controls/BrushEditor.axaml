@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="clr-namespace:Avalonia.Diagnostics.Controls;assembly=Avalonia.Diagnostics"
+        xmlns:controls="clr-namespace:InProcess.DevTools.Controls;assembly=InProcess.DevTools"
         x:ClassModifier="internal">
   <Design.PreviewWith>
     <controls:BrushEditor />

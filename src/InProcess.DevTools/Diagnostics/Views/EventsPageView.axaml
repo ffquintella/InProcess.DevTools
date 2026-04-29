@@ -1,9 +1,9 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:Avalonia.Diagnostics.ViewModels;assembly=Avalonia.Diagnostics"
-             xmlns:controls="clr-namespace:Avalonia.Diagnostics.Controls;assembly=Avalonia.Diagnostics"
-             xmlns:models="clr-namespace:Avalonia.Diagnostics.Models;assembly=Avalonia.Diagnostics"
-             x:Class="Avalonia.Diagnostics.Views.EventsPageView"
+             xmlns:vm="clr-namespace:InProcess.DevTools.ViewModels;assembly=InProcess.DevTools"
+             xmlns:controls="clr-namespace:InProcess.DevTools.Controls;assembly=InProcess.DevTools"
+             xmlns:models="clr-namespace:InProcess.DevTools.Models;assembly=InProcess.DevTools"
+             x:Class="InProcess.DevTools.Views.EventsPageView"
              Margin="2"
              x:DataType="vm:EventsPageViewModel">
   <UserControl.Styles>

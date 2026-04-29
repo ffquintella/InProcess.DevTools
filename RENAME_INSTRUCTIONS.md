@@ -1,8 +1,8 @@
-# Avalonia.Diagnostics → InProcess.DevTools Rename
+# InProcess.DevTools → InProcess.DevTools Rename
 
 ## Overview
 
-This document describes how the repository was renamed from `Avalonia.Diagnostics` to `InProcess.DevTools` while maintaining full backward compatibility with the original public API.
+This document describes how the repository was renamed from `InProcess.DevTools` to `InProcess.DevTools` while maintaining full backward compatibility with the original public API.
 
 ## Strategy
 
@@ -22,10 +22,10 @@ All internal implementation types changed their namespace:
 
 ```csharp
 // BEFORE
-namespace Avalonia.Diagnostics
-namespace Avalonia.Diagnostics.ViewModels
-namespace Avalonia.Diagnostics.Views
-namespace Avalonia.Diagnostics.Controls
+namespace InProcess.DevTools
+namespace InProcess.DevTools.ViewModels
+namespace InProcess.DevTools.Views
+namespace InProcess.DevTools.Controls
 
 // AFTER
 namespace InProcess.DevTools
@@ -34,7 +34,7 @@ namespace InProcess.DevTools.Views
 namespace InProcess.DevTools.Controls
 ```
 
-**Files affected:** ~60 C# source files in `src/Avalonia.Diagnostics/Diagnostics/**`
+**Files affected:** ~60 C# source files in `src/InProcess.DevTools/Diagnostics/**`
 
 ### 2. **Using Statements Updates**
 
@@ -42,8 +42,8 @@ All cross-namespace imports updated:
 
 ```csharp
 // BEFORE
-using Avalonia.Diagnostics;
-using Avalonia.Diagnostics.ViewModels;
+using InProcess.DevTools;
+using InProcess.DevTools.ViewModels;
 
 // AFTER
 using InProcess.DevTools;
@@ -52,7 +52,7 @@ using InProcess.DevTools.ViewModels;
 
 ### 3. **Project File Changes**
 
-#### `src/Avalonia.Diagnostics/Avalonia.Diagnostics.csproj`
+#### `src/InProcess.DevTools/InProcess.DevTools.csproj`
 
 ```xml
 <!-- ADDED: -->
@@ -69,7 +69,7 @@ using InProcess.DevTools.ViewModels;
 
 ```xml
 <!-- BEFORE -->
-<Project Path="src/Avalonia.Diagnostics/Avalonia.Diagnostics.csproj" />
+<Project Path="src/InProcess.DevTools/InProcess.DevTools.csproj" />
 
 <!-- AFTER -->
 <Project Path="src/InProcess.DevTools/InProcess.DevTools.csproj" />
@@ -81,7 +81,7 @@ Updated project references in the sample app:
 
 ```xml
 <!-- BEFORE -->
-<ProjectReference Include="..\..\src\Avalonia.Diagnostics\Avalonia.Diagnostics.csproj" />
+<ProjectReference Include="..\..\src\InProcess.DevTools\InProcess.DevTools.csproj" />
 
 <!-- AFTER -->
 <ProjectReference Include="..\..\src\InProcess.DevTools\InProcess.DevTools.csproj" />
@@ -90,7 +90,7 @@ Updated project references in the sample app:
 ### 6. **README Update**
 
 - Retitled project to "InProcess.DevTools"
-- Added "Fork of Avalonia.Diagnostics" explanation
+- Added "Fork of InProcess.DevTools" explanation
 - Updated package installation instructions
 - Clarified Avalonia 12+ support
 - Added backward compatibility notice
@@ -106,7 +106,7 @@ using Avalonia;
 // These work exactly as before:
 this.AttachDevTools();
 this.AttachDevTools(new KeyGesture(Key.F12));
-app.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions());
+app.AttachDevTools(new InProcess.DevTools.DevToolsOptions());
 ```
 
 ### Why It Works
@@ -117,7 +117,7 @@ app.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions());
 
 ### Known Limitations
 
-- Code that explicitly references implementation types (e.g., `new Avalonia.Diagnostics.ViewModels.MainViewModel()`) will need to change to `InProcess.DevTools.ViewModels.MainViewModel`
+- Code that explicitly references implementation types (e.g., `new InProcess.DevTools.ViewModels.MainViewModel()`) will need to change to `InProcess.DevTools.ViewModels.MainViewModel`
 - However, these are internal implementation details not typically used by consumers
 
 ## Directory Structure
@@ -126,16 +126,16 @@ Before and after:
 
 ```
 BEFORE:
-  src/Avalonia.Diagnostics/
-  samples/Avalonia.Diagnostics.Sample/
+  src/InProcess.DevTools/
+  samples/InProcess.DevTools.Sample/
   
 AFTER:
-  src/Avalonia.Diagnostics/          ← Project folder name unchanged (internal)
-    Avalonia.Diagnostics.csproj       ← Project file name unchanged (references updated)
+  src/InProcess.DevTools/          ← Project folder name unchanged (internal)
+    InProcess.DevTools.csproj       ← Project file name unchanged (references updated)
     Diagnostics/
       (all namespaces changed to InProcess.DevTools.*)
       
-  samples/Avalonia.Diagnostics.Sample/  ← Sample kept as-is for reference
+  samples/InProcess.DevTools.Sample/  ← Sample kept as-is for reference
 ```
 
 ## Files Changed Summary
@@ -152,10 +152,10 @@ To verify the rename works:
 
 ```bash
 # Build the project
-dotnet build .\Avalonia.Diagnostics.slnx -c Debug
+dotnet build .\InProcess.DevTools.slnx -c Debug
 
 # Run the sample (should attach DevTools with F12)
-dotnet run --project samples\Avalonia.Diagnostics.Sample\Avalonia.Diagnostics.Sample.csproj
+dotnet run --project samples\InProcess.DevTools.Sample\InProcess.DevTools.Sample.csproj
 ```
 
 ## Package Publishing
@@ -163,7 +163,7 @@ dotnet run --project samples\Avalonia.Diagnostics.Sample\Avalonia.Diagnostics.Sa
 When publishing to NuGet:
 
 ```bash
-dotnet pack src/Avalonia.Diagnostics/Avalonia.Diagnostics.csproj -c Release -o ./nuget
+dotnet pack src/InProcess.DevTools/InProcess.DevTools.csproj -c Release -o ./nuget
 # Will produce: InProcess.DevTools.X.Y.Z.nupkg (based on PackageId)
 ```
 
@@ -171,4 +171,4 @@ dotnet pack src/Avalonia.Diagnostics/Avalonia.Diagnostics.csproj -c Release -o .
 
 - Original issue: Rename to avoid trademark conflicts with AvaloniaUI brand
 - Target version: Avalonia 11.3.12+ (with Avalonia 12 support)
-- Compatibility: 100% backward compatible with `Avalonia.Diagnostics` code
+- Compatibility: 100% backward compatible with `InProcess.DevTools` code

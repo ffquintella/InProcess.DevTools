@@ -2,13 +2,13 @@
 
 [![NuGet](https://img.shields.io/nuget/v/InProcess.DevTools.svg)](https://www.nuget.org/packages/InProcess.DevTools/)
 
-> **Fork of Avalonia.Diagnostics** — This package brings the legacy in-process DevTools to **Avalonia 12+** while maintaining backward compatibility with code written for the original `Avalonia.Diagnostics` package.
+> **Fork of InProcess.DevTools** — This package brings the legacy in-process DevTools to **Avalonia 12+** while maintaining backward compatibility with code written for the original `InProcess.DevTools` package.
 
 ## About This Fork
 
-The original `Avalonia.Diagnostics` package was deprecated and removed from recent Avalonia versions. This fork revives it for developers who:
+The original `InProcess.DevTools` package was deprecated and removed from recent Avalonia versions. This fork revives it for developers who:
 - Need in-process DevTools for debugging Avalonia applications
-- Want to maintain legacy code that depends on `Avalonia.Diagnostics`
+- Want to maintain legacy code that depends on `InProcess.DevTools`
 - Prefer the lightweight in-process DevTools over the standalone Developer Tools
 
 This package provides an in-process DevTools window for inspecting the visual tree, styles, properties, and events of Avalonia applications directly within your running app.
@@ -72,7 +72,7 @@ this.AttachDevTools(new KeyGesture(Key.F11, KeyModifiers.Control));  // Ctrl+F11
 ### Custom Options
 
 ```csharp
-this.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()
+this.AttachDevTools(new InProcess.DevTools.DevToolsOptions()
 {
     StartupScreenIndex = 1,  // Start on secondary monitor
     ShowFpsCounter = true
@@ -81,9 +81,9 @@ this.AttachDevTools(new Avalonia.Diagnostics.DevToolsOptions()
 
 ## Backward Compatibility
 
-The public API is **100% compatible** with the original `Avalonia.Diagnostics`:
+The public API is **100% compatible** with the original `InProcess.DevTools`:
 - All extension methods (`AttachDevTools`) work identically
-- All public types are accessible via the `Avalonia.Diagnostics` namespace
+- All public types are accessible via the `InProcess.DevTools` namespace
 - Existing code will compile without changes
 
 Internally, implementation types use the `InProcess.DevTools` namespace, but this is transparent to consumers.
@@ -101,7 +101,7 @@ Internally, implementation types use the `InProcess.DevTools` namespace, but thi
 ## Differences from Original
 
 - **Avalonia 12+ support** — Updated to work with current Avalonia versions
-- **Package name** — Published as `InProcess.DevTools` (but internal namespace preserves `Avalonia.Diagnostics` for compatibility)
+- **Package name** — Published as `InProcess.DevTools` (but internal namespace preserves `InProcess.DevTools` for compatibility)
 - **Bug fixes** — Minor compatibility improvements for modern Avalonia
 
 ## License

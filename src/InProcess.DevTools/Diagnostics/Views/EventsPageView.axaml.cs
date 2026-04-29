@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using Avalonia.Controls;
-using Avalonia.Diagnostics.Models;
-using Avalonia.Diagnostics.ViewModels;
+using InProcess.DevTools.Models;
+using InProcess.DevTools.ViewModels;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;

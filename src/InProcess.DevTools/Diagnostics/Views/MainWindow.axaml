@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:InProcess.DevTools.Views;assembly=InProcess.DevTools"
+        xmlns:viewModels="clr-namespace:InProcess.DevTools.ViewModels;assembly=InProcess.DevTools"
+        xmlns:diagnostics="clr-namespace:InProcess.DevTools;assembly=InProcess.DevTools"
+        Title="Avalonia DevTools"
+        x:Class="InProcess.DevTools.Views.MainWindow"
+        x:DataType="viewModels:MainViewModel">
+  <Window.DataTemplates>
+    <diagnostics:ViewLocator/>
+  </Window.DataTemplates>
+
+  <Window.Styles>
+    <SimpleTheme />
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml"/>
+    <StyleInclude Source="avares://InProcess.DevTools/Diagnostics/Controls/ThicknessEditor.axaml" />
+    <StyleInclude Source="avares://InProcess.DevTools/Diagnostics/Controls/FilterTextBox.axaml" />
+    <StyleInclude Source="avares://InProcess.DevTools/Diagnostics/Controls/BrushEditor.axaml" />
+    <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Simple/Simple.xaml" />
+  </Window.Styles>
+  <views:MainView/>
+</Window>
