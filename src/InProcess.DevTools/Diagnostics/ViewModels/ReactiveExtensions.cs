@@ -1,13 +1,22 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Reactive;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Reflection;
-using Avalonia.Reactive;
 
 namespace InProcess.DevTools.ViewModels
 {
     internal static class ReactiveExtensions
     {
+        public static T DisposeWith<T>(this T disposable, CompositeDisposable container)
+            where T : IDisposable
+        {
+            container.Add(disposable);
+            return disposable;
+        }
+
         public static IObservable<TValue> GetObservable<TOwner, TValue>(
             this TOwner vm,
             Expression<Func<TOwner, TValue>> property,

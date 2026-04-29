@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>$(AvsCurrentTargetFramework);$(AvsLegacyTargetFrameworks);netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>$(AvsCurrentTargetFramework);$(AvsLegacyTargetFrameworks)</TargetFrameworks>
     <RootNamespace>Avalonia</RootNamespace>
     <AssemblyName>InProcess.DevTools</AssemblyName>
     <PackageId>InProcess.DevTools</PackageId>
@@ -15,6 +15,7 @@
     <PackageReference Include="Avalonia.Themes.Simple" />
     <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="System.Reactive" />
   </ItemGroup>
 
   <Import Project="../../build/SharedVersion.props" />

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Collections.Specialized;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
@@ -15,7 +16,7 @@ using Avalonia.Threading;
 
 namespace InProcess.DevTools.ViewModels
 {
-    internal class ControlDetailsViewModel : ViewModelBase, IDisposable, IClassesChangedListener
+    internal class ControlDetailsViewModel : ViewModelBase, IDisposable
     {
         private readonly AvaloniaObject _avaloniaObject;
         private readonly ISet<string> _pinnedProperties;
@@ -57,7 +58,7 @@ namespace InProcess.DevTools.ViewModels
 
             if (avaloniaObject is StyledElement styledElement)
             {
-                styledElement.Classes.AddListener(this);
+                styledElement.Classes.CollectionChanged += ClassesChanged;
 
                 var pseudoClassAttributes = styledElement.GetType().GetCustomAttributes<PseudoClassesAttribute>(true);
 
@@ -184,7 +185,15 @@ namespace InProcess.DevTools.ViewModels
 
             if (_avaloniaObject is StyledElement se)
             {
-                se.Classes.RemoveListener(this);
+                se.Classes.CollectionChanged -= ClassesChanged;
+            }
+        }
+
+        private void ClassesChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!SnapshotFrames)
+            {
+                Dispatcher.UIThread.Post(UpdateStyles);
             }
         }
 
@@ -253,14 +262,6 @@ namespace InProcess.DevTools.ViewModels
                 }
             }
 
-            if (!SnapshotFrames)
-            {
-                Dispatcher.UIThread.Post(UpdateStyles);
-            }
-        }
-
-        void IClassesChangedListener.Changed()
-        {
             if (!SnapshotFrames)
             {
                 Dispatcher.UIThread.Post(UpdateStyles);

@@ -1,4 +1,5 @@
 using System;
+using System.Reactive.Disposables;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Diagnostics;
@@ -54,108 +55,14 @@ namespace InProcess.DevTools.ViewModels
                 _subscriptions.Dispose();
             }
 
-            private static IObservable<PopupRoot?>? GetHostedPopupRootObservable(Visual visual)
-            {
-                static IObservable<PopupRoot?> GetPopupHostObservable(
-                    IPopupHostProvider popupHostProvider,
-                    string? providerName = null)
-                {
-                    return Observable.Create<IPopupHost?>(observer =>
-                        {
-                            void Handler(IPopupHost? args) => observer.OnNext(args);
-                            popupHostProvider.PopupHostChanged += Handler;
-                            return Disposable.Create(() => popupHostProvider.PopupHostChanged -= Handler);
-                        })
-                        .StartWith(popupHostProvider.PopupHost)
-                        .Select(popupHost =>
-                        {
-                            if (popupHost is Control control)
-                                return new PopupRoot(
-                                    control,
-                                    providerName != null ? $"{providerName} ({control.GetType().Name})" : null);
-
-                            return (PopupRoot?)null;
-                        });
-                }
-
-                return visual switch
-                {
-                    Popup p => GetPopupHostObservable(p),
-                    Control c => Observable.CombineLatest(
-                            new IObservable<object?>[]
-                            {
-                                c.GetObservable(Control.ContextFlyoutProperty),
-                                c.GetObservable(Control.ContextMenuProperty),
-                                c.GetObservable(FlyoutBase.AttachedFlyoutProperty),
-                                c.GetObservable(ToolTipDiagnostics.ToolTipProperty),
-                                c.GetObservable(Button.FlyoutProperty)
-                            })
-                        .Select(
-                            items =>
-                            {
-                                var contextFlyout = items[0] as IPopupHostProvider;
-                                var contextMenu = items[1] as ContextMenu;
-                                var attachedFlyout = items[2] as IPopupHostProvider;
-                                var toolTip = items[3] as IPopupHostProvider;
-                                var buttonFlyout = items[4] as IPopupHostProvider;
-
-                                if (contextMenu != null)
-                                    //Note: ContextMenus are special since all the items are added as visual children.
-                                    //So we don't need to go via Popup
-                                    return Observable.Return<PopupRoot?>(new PopupRoot(contextMenu));
-
-                                if (contextFlyout != null)
-                                    return GetPopupHostObservable(contextFlyout, "ContextFlyout");
-
-                                if (attachedFlyout != null)
-                                    return GetPopupHostObservable(attachedFlyout, "AttachedFlyout");
-
-                                if (toolTip != null)
-                                    return GetPopupHostObservable(toolTip, "ToolTip");
-
-                                if (buttonFlyout != null)
-                                    return GetPopupHostObservable(buttonFlyout, "Flyout");
-
-                                return Observable.Return<PopupRoot?>(null);
-                            })
-                        .Switch(),
-                    _ => null
-                };
-            }
-
             protected override void Initialize(AvaloniaList<TreeNode> nodes)
             {
                 _subscriptions.Clear();
 
-                if (GetHostedPopupRootObservable(_control) is { } popupRootObservable)
+                foreach (var child in _control.GetVisualChildren())
                 {
-                    VisualTreeNode? childNode = null;
-
-                    _subscriptions.Add(
-                        popupRootObservable
-                            .Subscribe(popupRoot =>
-                            {
-                                if (popupRoot != null)
-                                {
-                                    childNode = new VisualTreeNode(
-                                        popupRoot.Value.Root,
-                                        Owner,
-                                        popupRoot.Value.CustomName);
-
-                                    nodes.Add(childNode);
-                                }
-                                else if (childNode != null)
-                                {
-                                    nodes.Remove(childNode);
-                                }
-                            }));
+                    nodes.Add(new VisualTreeNode((AvaloniaObject)child, Owner));
                 }
-
-                _subscriptions.Add(
-                    _control.VisualChildren.ForEachItem(
-                        (i, item) => nodes.Insert(i, new VisualTreeNode((AvaloniaObject)item, Owner)),
-                        (i, item) => nodes.RemoveAt(i),
-                        () => nodes.Clear()));
             }
 
             private struct PopupRoot

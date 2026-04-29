@@ -11,9 +11,9 @@ namespace InProcess.DevTools
     {
         public static string PrintVisualTree(Visual visual)
         {
-            var result = StringBuilderCache.Acquire();
+            var result = new StringBuilder();
             PrintVisualTree(visual, result, 0);
-            return StringBuilderCache.GetStringAndRelease(result);
+            return result.ToString();
         }
 
         private static void PrintVisualTree(Visual visual, StringBuilder builder, int indent)
@@ -56,7 +56,7 @@ namespace InProcess.DevTools
                 builder.AppendLine();
             }
 
-            foreach (var child in visual.VisualChildren)
+            foreach (var child in visual.GetVisualChildren())
             {
                 PrintVisualTree(child, builder, indent + 1);
             }

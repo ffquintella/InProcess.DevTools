@@ -1,4 +1,5 @@
 using System;
+using System.Reactive.Disposables;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
@@ -99,7 +100,7 @@ namespace InProcess.DevTools.ViewModels
                 _group.Added += GroupOnAdded;
                 _group.Removed += GroupOnRemoved;
 
-                _subscriptions.Add(new Disposable.AnonymousDisposable(() =>
+                _subscriptions.Add(Disposable.Create(() =>
                 {
                     _group.Added -= GroupOnAdded;
                     _group.Removed -= GroupOnRemoved;

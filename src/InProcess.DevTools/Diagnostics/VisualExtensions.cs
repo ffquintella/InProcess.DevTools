@@ -17,7 +17,8 @@ namespace InProcess.DevTools
         /// <param name="dpi">Dpi quality.</param>
         public static void RenderTo(this Control source, Stream destination, double dpi = 96)
         {
-            var transform = source.CompositionVisual?.TryGetServerGlobalTransform();
+            var visual = Avalonia.Rendering.Composition.ElementComposition.GetElementVisual(source);
+            var transform = visual?.TryGetServerGlobalTransform();
             if (transform == null)
                 return;
 
@@ -27,9 +28,7 @@ namespace InProcess.DevTools
             var dpiVector = new Vector(dpi, dpi);
 
             // get Visual root
-            var root = (source.VisualRoot
-                ?? source.GetVisualRoot())
-                as Control ?? source;
+            var root = TopLevel.GetTopLevel(source) as Control ?? source;
 
             IDisposable? clipSetter = default;
             IDisposable? clipToBoundsSetter = default;
@@ -38,7 +37,7 @@ namespace InProcess.DevTools
             try
             {
                 // Set clip region
-                var clipRegion = new Media.RectangleGeometry(rect);
+                var clipRegion = new Avalonia.Media.RectangleGeometry(rect);
                 clipToBoundsSetter = root.SetValue(Visual.ClipToBoundsProperty, true, BindingPriority.Animation);
                 clipSetter = root.SetValue(Visual.ClipProperty, clipRegion, BindingPriority.Animation);
 
@@ -48,7 +47,7 @@ namespace InProcess.DevTools
                     BindingPriority.Animation);
 
                 renderTransformSetter = root.SetValue(Visual.RenderTransformProperty,
-                    new Media.TranslateTransform(-top.X, -top.Y),
+                    new Avalonia.Media.TranslateTransform(-top.X, -top.Y),
                     BindingPriority.Animation);
 
                 using (var bitmap = new RenderTargetBitmap(pixelSize, dpiVector))

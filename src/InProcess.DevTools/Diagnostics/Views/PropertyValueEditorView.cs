@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
@@ -106,8 +108,9 @@ namespace InProcess.DevTools.Views
 
                 cv.Bind(
                         ColorView.ColorProperty,
-                        new Binding(nameof(Property.Value), BindingMode.TwoWay)
+                        new Binding(nameof(Property.Value))
                         {
+                            Mode = BindingMode.TwoWay,
                             Source = Property,
                             Converter = Color2Brush
                         })
@@ -203,7 +206,7 @@ namespace InProcess.DevTools.Views
                 new TextToValueConverter(),
                 t =>
                 {
-                    t.Watermark = "(null)";
+                    t.PlaceholderText = "(null)";
                 },
                 readonlyProperty: TextBox.IsReadOnlyProperty);
 
@@ -244,8 +247,9 @@ namespace InProcess.DevTools.Views
                 init?.Invoke(control);
 
                 control.Bind(valueProperty,
-                    new Binding(nameof(Property.Value), bindingMode)
+                    new Binding(nameof(Property.Value))
                     {
+                        Mode = bindingMode,
                         Source = Property,
                         Converter = converter ?? new ValueConverter(),
                         ConverterParameter = propertyType

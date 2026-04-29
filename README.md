@@ -2,13 +2,13 @@
 
 [![NuGet](https://img.shields.io/nuget/v/InProcess.DevTools.svg)](https://www.nuget.org/packages/InProcess.DevTools/)
 
-> **Fork of InProcess.DevTools** — This package brings the legacy in-process DevTools to **Avalonia 12+** while maintaining backward compatibility with code written for the original `InProcess.DevTools` package.
+> **Fork of Avalonia.Diagnostics** — This package brings the legacy in-process DevTools to **Avalonia 12+** while maintaining backward compatibility with code written for the original `Avalonia.Diagnostics` package.
 
 ## About This Fork
 
-The original `InProcess.DevTools` package was deprecated and removed from recent Avalonia versions. This fork revives it for developers who:
+The original `Avalonia.Diagnostics` package was deprecated and removed from recent Avalonia versions. This fork revives it for developers who:
 - Need in-process DevTools for debugging Avalonia applications
-- Want to maintain legacy code that depends on `InProcess.DevTools`
+- Want to maintain legacy code that depends on `Avalonia.Diagnostics`
 - Prefer the lightweight in-process DevTools over the standalone Developer Tools
 
 This package provides an in-process DevTools window for inspecting the visual tree, styles, properties, and events of Avalonia applications directly within your running app.
@@ -81,7 +81,7 @@ this.AttachDevTools(new InProcess.DevTools.DevToolsOptions()
 
 ## Backward Compatibility
 
-The public API is **100% compatible** with the original `InProcess.DevTools`:
+The public API is **100% compatible** with the original `Avalonia.Diagnostics`:
 - All extension methods (`AttachDevTools`) work identically
 - All public types are accessible via the `InProcess.DevTools` namespace
 - Existing code will compile without changes

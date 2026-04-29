@@ -5,8 +5,8 @@ namespace InProcess.DevTools
 {
     internal static class KeyGestureExtesions
     {
-        public static bool Matches(this KeyGesture gesture, RawKeyEventArgs keyEvent) =>
-            (KeyModifiers)(keyEvent.Modifiers & RawInputModifiers.KeyboardMask) == gesture.KeyModifiers &&
+        public static bool Matches(this KeyGesture gesture, KeyEventArgs keyEvent) =>
+            keyEvent.KeyModifiers == gesture.KeyModifiers &&
                 ResolveNumPadOperationKey(keyEvent.Key) == ResolveNumPadOperationKey(gesture.Key);
 
         private static Key ResolveNumPadOperationKey(Key key)

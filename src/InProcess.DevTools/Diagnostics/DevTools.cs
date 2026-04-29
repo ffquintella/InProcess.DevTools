@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Disposables;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace InProcess.DevTools
 
         internal static IDisposable Attach(Application application, DevToolsOptions options)
         {
-            var openedDisposable = new SerialDisposableValue();
+            var openedDisposable = new SerialDisposable();
             var result = new CompositeDisposable(2);
             result.Add(openedDisposable);
 
@@ -62,23 +63,16 @@ namespace InProcess.DevTools
                     throw new ArgumentNullException(nameof(application), "DevTools can only attach to applications that support IClassicDesktopStyleApplicationLifetime.");
                 }
 
-                if (application.InputManager is not null)
+                result.Add(Window.KeyUpEvent.AddClassHandler<Window>((sender, e) =>
                 {
-                    result.Add(application.InputManager.PreProcess.Subscribe(e =>
+                    if (options.Gesture.Matches(e))
                     {
-                        var owner = lifeTime.MainWindow;
-
-                        if (e is RawKeyEventArgs keyEventArgs
-                            && keyEventArgs.Type == RawKeyEventType.KeyUp
-                            && options.Gesture.Matches(keyEventArgs))
-                        {
-                            openedDisposable.Disposable =
-                                Open(new ClassicDesktopStyleApplicationLifetimeTopLevelGroup(lifeTime), options,
-                                    owner, application);
-                            e.Handled = true;
-                        }
-                    }));
-                }
+                        openedDisposable.Disposable =
+                            Open(new ClassicDesktopStyleApplicationLifetimeTopLevelGroup(lifeTime), options,
+                                sender as Window, application);
+                        e.Handled = true;
+                    }
+                }, RoutingStrategies.Tunnel, handledEventsToo: true));
             }
             return result;
         }

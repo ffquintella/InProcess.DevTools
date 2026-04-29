@@ -1,14 +1,14 @@
-# InProcess.DevTools → InProcess.DevTools Migration Summary
+# Avalonia.Diagnostics → InProcess.DevTools Migration Summary
 
 ## ✅ Completed Tasks
 
 ### 1. **Namespace Rename** (60+ files)
-- All implementation namespaces changed from `InProcess.DevTools.*` → `InProcess.DevTools.*`
+- All implementation namespaces changed from `Avalonia.Diagnostics.*` → `InProcess.DevTools.*`
 - Subdomain namespaces updated:
-  - `InProcess.DevTools.ViewModels` → `InProcess.DevTools.ViewModels`
-  - `InProcess.DevTools.Views` → `InProcess.DevTools.Views`
-  - `InProcess.DevTools.Controls` → `InProcess.DevTools.Controls`
-  - `InProcess.DevTools.Converters` → `InProcess.DevTools.Converters`
+  - `Avalonia.Diagnostics.ViewModels` → `InProcess.DevTools.ViewModels`
+  - `Avalonia.Diagnostics.Views` → `InProcess.DevTools.Views`
+  - `Avalonia.Diagnostics.Controls` → `InProcess.DevTools.Controls`
+  - `Avalonia.Diagnostics.Converters` → `InProcess.DevTools.Converters`
   - Plus: Behaviors, Models, Screenshots, etc.
 
 ### 2. **Using Statements Updated**

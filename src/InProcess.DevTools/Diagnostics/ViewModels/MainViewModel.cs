@@ -45,27 +45,29 @@ namespace InProcess.DevTools.ViewModels
 
             UpdateFocusedControl();
 
-            if (KeyboardDevice.Instance is not null)
-                KeyboardDevice.Instance.PropertyChanged += KeyboardPropertyChanged;
+            if (FocusManager.Instance is not null)
+                FocusManager.Instance.PropertyChanged += FocusManagerPropertyChanged;
             SelectedTab = 0;
             if (root is TopLevel topLevel)
             {
                 _pointerOverRoot = topLevel;
-                _pointerOverSubscription = topLevel.GetObservable(TopLevel.PointerOverElementProperty)
-                    .Subscribe(x => PointerOverElement = x);
-
+                // In Avalonia 11+, we can't easily get a global PointerOverElement property from TopLevel.
+                // We'll use the PointerMoved event instead or similar.
+                _pointerOverSubscription = topLevel.AddDisposableHandler(
+                    InputElement.PointerMovedEvent,
+                    (s, e) => PointerOverElement = topLevel.InputHitTest(e.GetPosition(topLevel)),
+                    RoutingStrategies.Tunnel);
             }
             else
             {
-                _pointerOverSubscription = InputManager.Instance!.PreProcess
-                    .Subscribe(e =>
-                        {
-                            if (e is Input.Raw.RawPointerEventArgs pointerEventArgs)
-                            {
-                                PointerOverRoot = pointerEventArgs.Root;
-                                PointerOverElement = pointerEventArgs.Root.InputHitTest(pointerEventArgs.Position);
-                            }
-                        });
+                // Global tracking using ClassHandler
+                _pointerOverSubscription = Window.PointerMovedEvent.AddClassHandler<Window>((w, e) =>
+                {
+                    if (PointerOverRoot == null || PointerOverRoot == w)
+                    {
+                        PointerOverElement = w.InputHitTest(e.GetPosition(w));
+                    }
+                }, RoutingStrategies.Tunnel, handledEventsToo: true);
             }
         }
 
@@ -84,26 +86,26 @@ namespace InProcess.DevTools.ViewModels
         public void ToggleVisualizeMarginPadding()
             => ShouldVisualizeMarginPadding = !ShouldVisualizeMarginPadding;
 
-        private IRenderer? TryGetRenderer()
+        private Avalonia.Rendering.RendererDiagnostics? TryGetRendererDiagnostics()
             => _root switch
             {
-                TopLevel topLevel => topLevel.Renderer,
-                Controls.Application app => app.RendererRoot,
+                TopLevel topLevel => topLevel.RendererDiagnostics,
+                Controls.Application app => app.RendererDiagnostics,
                 _ => null
             };
 
         private bool GetDebugOverlay(RendererDebugOverlays overlay)
-            => ((TryGetRenderer()?.Diagnostics.DebugOverlays ?? RendererDebugOverlays.None) & overlay) != 0;
+            => ((TryGetRendererDiagnostics()?.DebugOverlays ?? RendererDebugOverlays.None) & overlay) != 0;
 
         private void SetDebugOverlay(RendererDebugOverlays overlay, bool enable,
             [CallerMemberName] string? propertyName = null)
         {
-            if (TryGetRenderer() is not { } renderer)
+            if (TryGetRendererDiagnostics() is not { } diagnostics)
             {
                 return;
             }
 
-            var oldValue = renderer.Diagnostics.DebugOverlays;
+            var oldValue = diagnostics.DebugOverlays;
             var newValue = enable ? oldValue | overlay : oldValue & ~overlay;
 
             if (oldValue == newValue)
@@ -111,7 +113,7 @@ namespace InProcess.DevTools.ViewModels
                 return;
             }
 
-            renderer.Diagnostics.DebugOverlays = newValue;
+            diagnostics.DebugOverlays = newValue;
             RaisePropertyChanged(propertyName);
         }
 
@@ -258,21 +260,21 @@ namespace InProcess.DevTools.ViewModels
 
         public void Dispose()
         {
-            if (KeyboardDevice.Instance is not null)
-                KeyboardDevice.Instance.PropertyChanged -= KeyboardPropertyChanged;
+            if (FocusManager.Instance is not null)
+                FocusManager.Instance.PropertyChanged -= FocusManagerPropertyChanged;
             _pointerOverSubscription.Dispose();
             _logicalTree.Dispose();
             _visualTree.Dispose();
             _currentFocusHighlightAdorner?.Dispose();
-            if (TryGetRenderer() is { } renderer)
+            if (TryGetRendererDiagnostics() is { } diagnostics)
             {
-                renderer.Diagnostics.DebugOverlays = RendererDebugOverlays.None;
+                diagnostics.DebugOverlays = RendererDebugOverlays.None;
             }
         }
 
         private void UpdateFocusedControl()
         {
-            var element = KeyboardDevice.Instance?.FocusedElement;
+            var element = FocusManager.Instance?.FocusedElement;
             FocusedControl = element?.GetType().Name;
             _currentFocusHighlightAdorner?.Dispose();
             if (FocusHighlighter is IBrush brush
@@ -284,9 +286,9 @@ namespace InProcess.DevTools.ViewModels
             }
         }
 
-        private void KeyboardPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void FocusManagerPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(KeyboardDevice.Instance.FocusedElement))
+            if (e.PropertyName == nameof(FocusManager.Instance.FocusedElement))
             {
                 UpdateFocusedControl();
             }

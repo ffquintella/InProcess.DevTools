@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Avalonia.Controls;
 using Avalonia.Styling;
 using Lifetimes = Avalonia.Controls.ApplicationLifetimes;
@@ -6,7 +6,7 @@ using Lifetimes = Avalonia.Controls.ApplicationLifetimes;
 namespace InProcess.DevTools.Controls
 {
     internal class Application : TopLevelGroup
-       , Input.ICloseable, IDisposable
+       , Avalonia.Input.ICloseable, IDisposable
 
     {
         private readonly Avalonia.Application _application;
@@ -31,10 +31,10 @@ namespace InProcess.DevTools.Controls
                 };
                 controller.Exit += eh;
             }
-            RendererRoot = application.ApplicationLifetime switch
+            RendererDiagnostics = application.ApplicationLifetime switch
             {
-                Lifetimes.IClassicDesktopStyleApplicationLifetime classic => classic.MainWindow?.Renderer,
-                Lifetimes.ISingleViewApplicationLifetime single => single.MainView?.VisualRoot?.Renderer,
+                Lifetimes.IClassicDesktopStyleApplicationLifetime classic => classic.MainWindow?.RendererDiagnostics,
+                Lifetimes.ISingleViewApplicationLifetime single => (single.MainView?.VisualRoot as TopLevel)?.RendererDiagnostics,
                 _ => null
             };
 
@@ -60,15 +60,6 @@ namespace InProcess.DevTools.Controls
             _application.DataTemplates;
 
         /// <summary>
-        /// Gets the application's input manager.
-        /// </summary>
-        /// <value>
-        /// The application's input manager.
-        /// </value>
-        public Input.InputManager? InputManager =>
-            _application.InputManager;
-
-        /// <summary>
         /// Gets the application's global resource dictionary.
         /// </summary>
         public IResourceDictionary Resources =>
@@ -83,7 +74,7 @@ namespace InProcess.DevTools.Controls
         /// <remarks>
         /// Global styles apply to all windows in the application.
         /// </remarks>
-        public Styling.Styles Styles =>
+        public Avalonia.Styling.Styles Styles =>
             _application.Styles;
 
         /// <summary>
@@ -103,9 +94,9 @@ namespace InProcess.DevTools.Controls
             _application.Name;
 
         /// <summary>
-        /// Gets the root of the visual tree, if the control is attached to a visual tree.
+        /// Gets the renderer diagnostics, if the control is attached to a visual tree.
         /// </summary>
-        internal Rendering.IRenderer? RendererRoot { get; }
+        internal Avalonia.Rendering.RendererDiagnostics? RendererDiagnostics { get; }
         
         /// <inheritdoc cref="ThemeVariantScope.RequestedThemeVariant" />
         public ThemeVariant? RequestedThemeVariant
