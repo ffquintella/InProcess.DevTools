@@ -1,8 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:InProcess.DevTools.ViewModels;assembly=InProcess.DevTools"
-             xmlns:controls="clr-namespace:InProcess.DevTools.Controls;assembly=InProcess.DevTools"
-             xmlns:models="clr-namespace:InProcess.DevTools.Models;assembly=InProcess.DevTools"
+             xmlns:vm="clr-namespace:InProcess.DevTools.ViewModels;assembly=Avalonia.Diagnostics"
+             xmlns:controls="clr-namespace:InProcess.DevTools.Controls;assembly=Avalonia.Diagnostics"
+             xmlns:models="clr-namespace:InProcess.DevTools.Models;assembly=Avalonia.Diagnostics"
              x:Class="InProcess.DevTools.Views.EventsPageView"
              Margin="2"
              x:DataType="vm:EventsPageViewModel">
@@ -41,7 +41,7 @@
       <controls:FilterTextBox Grid.Row="0" Margin="0,0,0,2"
                               DataContext="{Binding EventsFilter}"
                               Text="{Binding FilterString}"
-                              Watermark="Filter events"
+                              PlaceholderText="Filter events"
                               UseCaseSensitiveFilter="{Binding UseCaseSensitiveFilter}"
                               UseWholeWordFilter="{Binding UseWholeWordFilter}"
                               UseRegexFilter="{Binding UseRegexFilter}" />

@@ -59,7 +59,8 @@ namespace InProcess.DevTools.ViewModels
         internal class TopLevelGroupHostLogical : TreeNodeCollection
         {
             private readonly Controls.TopLevelGroup _group;
-            private readonly CompositeDisposable _subscriptions = new(1);
+            private readonly System.Reactive.Disposables.CompositeDisposable _subscriptions = new();
+
 
             public TopLevelGroupHostLogical(TreeNode owner, Controls.TopLevelGroup host) :
                 base(owner)
@@ -100,7 +101,7 @@ namespace InProcess.DevTools.ViewModels
                 _group.Added += GroupOnAdded;
                 _group.Removed += GroupOnRemoved;
 
-                _subscriptions.Add(Disposable.Create(() =>
+                _subscriptions.Add(System.Reactive.Disposables.Disposable.Create(() =>
                 {
                     _group.Added -= GroupOnAdded;
                     _group.Removed -= GroupOnRemoved;

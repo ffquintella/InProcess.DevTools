@@ -56,7 +56,7 @@ namespace InProcess.DevTools.ViewModels
 
                 // FIXME: This leaks event handlers.
                 Event.AddClassHandler(typeof(object), HandleEvent, allRoutes, handledEventsToo: true);
-                Event.RouteFinished.Subscribe(HandleRouteFinished);
+                System.ObservableExtensions.Subscribe(Event.RouteFinished, HandleRouteFinished);
                 
                 _isRegistered = true;
             }

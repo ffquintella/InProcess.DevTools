@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Reactive;
+using System.Reactive.Disposables;
 
 namespace InProcess.DevTools.Controls;
 

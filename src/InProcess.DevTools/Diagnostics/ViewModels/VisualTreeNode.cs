@@ -42,7 +42,7 @@ namespace InProcess.DevTools.ViewModels
         internal class VisualTreeNodeCollection : TreeNodeCollection
         {
             private readonly Visual _control;
-            private readonly CompositeDisposable _subscriptions = new CompositeDisposable(2);
+            private readonly System.Reactive.Disposables.CompositeDisposable _subscriptions = new System.Reactive.Disposables.CompositeDisposable(2);
 
             public VisualTreeNodeCollection(TreeNode owner, Visual control)
                 : base(owner)
@@ -81,7 +81,7 @@ namespace InProcess.DevTools.ViewModels
         internal class ApplicationHostVisuals : TreeNodeCollection
         {
             readonly Controls.Application _application;
-            CompositeDisposable _subscriptions = new CompositeDisposable(2);
+            System.Reactive.Disposables.CompositeDisposable _subscriptions = new System.Reactive.Disposables.CompositeDisposable(2);
             public ApplicationHostVisuals(TreeNode owner, Controls.Application host) :
                 base(owner)
             {
@@ -107,7 +107,7 @@ namespace InProcess.DevTools.ViewModels
                         }
                         nodes.Add(new VisualTreeNode(window, Owner));
                     }
-                    _subscriptions = new CompositeDisposable(2)
+                    _subscriptions = new System.Reactive.Disposables.CompositeDisposable(2)
                     {
                         Window.WindowOpenedEvent.AddClassHandler(typeof(Window), (s,e)=>
                             {

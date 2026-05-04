@@ -5,7 +5,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
-using Avalonia.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Disposables;
 
 namespace InProcess.DevTools.ViewModels
 {
@@ -28,7 +29,7 @@ namespace InProcess.DevTools.ViewModels
             if (avaloniaObject is StyledElement { Classes: { } classes })
             {
                 _classesSubscription = ((IObservable<object?>)classes.GetWeakCollectionChangedObservable())
-                    .StartWith(null)
+                    .StartWith((object?)null)
                     .Subscribe(_ =>
                     {
                         if (classes.Count > 0)
@@ -45,7 +46,7 @@ namespace InProcess.DevTools.ViewModels
 
         private bool IsRoot => Visual is TopLevel ||
                                Visual is ContextMenu ||
-                               Visual is IPopupHost;
+                               TopLevel.GetTopLevel(Visual as Visual) == Visual;
 
         public FontWeight FontWeight { get; }
 

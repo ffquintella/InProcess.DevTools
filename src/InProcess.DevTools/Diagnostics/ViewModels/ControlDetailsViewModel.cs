@@ -13,6 +13,8 @@ using Avalonia.Data;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using System.Threading;
+using System.Reactive.Linq;
 
 namespace InProcess.DevTools.ViewModels
 {

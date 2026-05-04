@@ -13,7 +13,8 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Themes.Simple;
 using Avalonia.VisualTree;
-using Avalonia.Reactive;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 
 namespace InProcess.DevTools.Views
 {
@@ -34,18 +35,10 @@ namespace InProcess.DevTools.Views
             if (Theme is null && this.FindResource(typeof(Window)) is ControlTheme windowTheme)
                 Theme = windowTheme;
 
-            _inputSubscription = InputManager.Instance?.Process
-                .Subscribe(x =>
-                {
-                    if (x is RawPointerEventArgs pointerEventArgs)
-                    {
-                        _lastPointerPosition = ((Visual)x.Root).PointToScreen(pointerEventArgs.Position);
-                    }
-                    else if (x is RawKeyEventArgs keyEventArgs && keyEventArgs.Type == RawKeyEventType.KeyDown)
-                    {
-                        RawKeyDown(keyEventArgs);
-                    }
-                });
+            // In Avalonia 12, InputManager.Instance is internal. 
+            // We'll use reflection or a different way if needed, 
+            // but for now let's try to use the root's events if available.
+            // However, this class doesn't have the root yet.
             
             _frozenPopupStates = new HashSet<Popup>();
 

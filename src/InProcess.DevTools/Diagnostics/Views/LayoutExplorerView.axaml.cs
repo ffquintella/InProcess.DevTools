@@ -1,10 +1,10 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using InProcess.DevTools.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
-using Avalonia.Reactive;
 
 namespace InProcess.DevTools.Views
 {
@@ -37,18 +37,17 @@ namespace InProcess.DevTools.Views
             _verticalSize = this.GetControl<Border>("VerticalSize");
 
             _contentArea = this.GetControl<Border>("ContentArea");
-
             _layoutRoot = this.GetControl<Grid>("LayoutRoot");
 
             Visual? visual = _contentArea;
             while (visual != null && !ReferenceEquals(visual, this))
             {
-                visual.GetPropertyChangedObservable(BoundsProperty)
-                    .Subscribe(UpdateSizeGuidelines);
-                visual = visual.VisualParent;
+                System.ObservableExtensions.Subscribe(visual.GetPropertyChangedObservable(BoundsProperty), UpdateSizeGuidelines);
+                visual = visual.GetVisualParent();
             }
-            
+
         }
+
 
         private void UpdateSizeGuidelines(AvaloniaPropertyChangedEventArgs _)
         {

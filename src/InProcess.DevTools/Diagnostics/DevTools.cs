@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reactive.Disposables;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -8,13 +8,13 @@ using InProcess.DevTools.Views;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
 using Avalonia.Interactivity;
-using Avalonia.Reactive;
 
 namespace InProcess.DevTools
 {
     internal static class DevTools
     {
         private static readonly Dictionary<IDevToolsTopLevelGroup, MainWindow> s_open = new();
+        private static readonly System.Reactive.Disposables.CompositeDisposable s_registrations = new();
 
         public static IDisposable Attach(TopLevel root, KeyGesture gesture)
         {
@@ -49,7 +49,7 @@ namespace InProcess.DevTools
         internal static IDisposable Attach(Application application, DevToolsOptions options)
         {
             var openedDisposable = new SerialDisposable();
-            var result = new CompositeDisposable(2);
+            var result = new System.Reactive.Disposables.CompositeDisposable(2);
             result.Add(openedDisposable);
 
             // Skip if call on Design Mode

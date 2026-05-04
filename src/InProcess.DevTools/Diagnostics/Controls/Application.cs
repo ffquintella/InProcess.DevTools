@@ -34,7 +34,7 @@ namespace InProcess.DevTools.Controls
             RendererDiagnostics = application.ApplicationLifetime switch
             {
                 Lifetimes.IClassicDesktopStyleApplicationLifetime classic => classic.MainWindow?.RendererDiagnostics,
-                Lifetimes.ISingleViewApplicationLifetime single => (single.MainView?.VisualRoot as TopLevel)?.RendererDiagnostics,
+                Lifetimes.ISingleViewApplicationLifetime single => TopLevel.GetTopLevel(single.MainView)?.RendererDiagnostics,
                 _ => null
             };
 

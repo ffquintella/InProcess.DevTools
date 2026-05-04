@@ -15,7 +15,6 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml.Converters;
 using Avalonia.Media;
-using Avalonia.Reactive;
 
 namespace InProcess.DevTools.Views
 {
@@ -29,7 +28,7 @@ namespace InProcess.DevTools.Views
 
         private static readonly ColorToBrushConverter Color2Brush = new();
 
-        private readonly CompositeDisposable _cleanup = new();
+        private readonly System.Reactive.Disposables.CompositeDisposable _cleanup = new();
         private PropertyViewModel? Property => (PropertyViewModel?)DataContext;
 
         protected override void OnDataContextChanged(EventArgs e)

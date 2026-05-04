@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Avalonia.Controls;
 using InProcess.DevTools.ViewModels;
@@ -5,18 +6,20 @@ using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 
+using Avalonia.VisualTree;
+
 namespace InProcess.DevTools.Views
 {
     internal partial class TreePageView : UserControl
     {
-        private TreeViewItem? _hovered;
         private TreeView _tree;
-        private System.IDisposable? _adorner;
+        private IDisposable? _adorner;
+        private TreeViewItem? _hovered;
 
         public TreePageView()
         {
             InitializeComponent();
-            _tree = this.GetControl<TreeView>("tree");
+            _tree = this.FindControl<TreeView>("tree")!;
         }
 
         protected void UpdateAdorner(object? sender, PointerEventArgs e)
@@ -34,11 +37,12 @@ namespace InProcess.DevTools.Views
 
             _adorner?.Dispose();
 
-            if (item is null || item.TreeViewOwner != _tree)
+            if (item is null || item.FindAncestorOfType<TreeView>() != _tree)
             {
                 _hovered = null;
                 return;
             }
+
 
             _hovered = item;
 

@@ -5,10 +5,12 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Metadata;
 using Avalonia.Threading;
-using Avalonia.Reactive;
+using Avalonia.Interactivity;
 using Avalonia.Rendering;
 using System.Collections.Generic;
 using Avalonia.Media;
+using System.Reactive.Linq;
+using System.Reactive.Disposables;
 
 namespace InProcess.DevTools.ViewModels
 {
@@ -19,7 +21,8 @@ namespace InProcess.DevTools.ViewModels
         private readonly TreePageViewModel _visualTree;
         private readonly EventsPageViewModel _events;
         private readonly HotKeyPageViewModel _hotKeys;
-        private readonly IDisposable _pointerOverSubscription;
+        private readonly IFocusManager? _focusManager;
+        private readonly IDisposable? _pointerOverSubscription;
         private ViewModelBase? _content;
         private int _selectedTab;
         private string? _focusedControl;
@@ -43,31 +46,31 @@ namespace InProcess.DevTools.ViewModels
             _events = new EventsPageViewModel(this);
             _hotKeys = new HotKeyPageViewModel();
 
+            _focusManager = (root as TopLevel ?? TopLevel.GetTopLevel(root as Visual))?.FocusManager;
+
             UpdateFocusedControl();
 
-            if (FocusManager.Instance is not null)
-                FocusManager.Instance.PropertyChanged += FocusManagerPropertyChanged;
-            SelectedTab = 0;
             if (root is TopLevel topLevel)
             {
-                _pointerOverRoot = topLevel;
+                _pointerOverRoot = (IInputRoot)topLevel;
                 // In Avalonia 11+, we can't easily get a global PointerOverElement property from TopLevel.
                 // We'll use the PointerMoved event instead or similar.
                 _pointerOverSubscription = topLevel.AddDisposableHandler(
                     InputElement.PointerMovedEvent,
                     (s, e) => PointerOverElement = topLevel.InputHitTest(e.GetPosition(topLevel)),
                     RoutingStrategies.Tunnel);
+                
+                topLevel.AddHandler(InputElement.GotFocusEvent, (s, e) => UpdateFocusedControl(), RoutingStrategies.Bubble);
             }
-            else
+            else if (TopLevel.GetTopLevel(root as Visual) is TopLevel tl)
             {
-                // Global tracking using ClassHandler
-                _pointerOverSubscription = Window.PointerMovedEvent.AddClassHandler<Window>((w, e) =>
-                {
-                    if (PointerOverRoot == null || PointerOverRoot == w)
-                    {
-                        PointerOverElement = w.InputHitTest(e.GetPosition(w));
-                    }
-                }, RoutingStrategies.Tunnel, handledEventsToo: true);
+                _pointerOverRoot = (IInputRoot)tl;
+                _pointerOverSubscription = tl.AddDisposableHandler(
+                    InputElement.PointerMovedEvent,
+                    (s, e) => PointerOverElement = tl.InputHitTest(e.GetPosition(tl)),
+                    RoutingStrategies.Tunnel);
+                
+                tl.AddHandler(InputElement.GotFocusEvent, (s, e) => UpdateFocusedControl(), RoutingStrategies.Bubble);
             }
         }
 
@@ -260,9 +263,7 @@ namespace InProcess.DevTools.ViewModels
 
         public void Dispose()
         {
-            if (FocusManager.Instance is not null)
-                FocusManager.Instance.PropertyChanged -= FocusManagerPropertyChanged;
-            _pointerOverSubscription.Dispose();
+            _pointerOverSubscription?.Dispose();
             _logicalTree.Dispose();
             _visualTree.Dispose();
             _currentFocusHighlightAdorner?.Dispose();
@@ -274,7 +275,7 @@ namespace InProcess.DevTools.ViewModels
 
         private void UpdateFocusedControl()
         {
-            var element = FocusManager.Instance?.FocusedElement;
+            var element = _focusManager?.GetFocusedElement();
             FocusedControl = element?.GetType().Name;
             _currentFocusHighlightAdorner?.Dispose();
             if (FocusHighlighter is IBrush brush
@@ -283,14 +284,6 @@ namespace InProcess.DevTools.ViewModels
                 )
             {
                 _currentFocusHighlightAdorner = Controls.ControlHighlightAdorner.Add(input, brush);
-            }
-        }
-
-        private void FocusManagerPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(FocusManager.Instance.FocusedElement))
-            {
-                UpdateFocusedControl();
             }
         }
 
@@ -317,7 +310,7 @@ namespace InProcess.DevTools.ViewModels
             return Content is TreePageViewModel tree
                 && tree.SelectedNode != null
                 && tree.SelectedNode.Visual is Visual visual
-                && visual.VisualRoot != null;
+                && TopLevel.GetTopLevel(visual) != null;
         }
 
         public async void Shot(object? parameter)

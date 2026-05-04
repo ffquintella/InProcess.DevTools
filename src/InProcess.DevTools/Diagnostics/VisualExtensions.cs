@@ -17,8 +17,7 @@ namespace InProcess.DevTools
         /// <param name="dpi">Dpi quality.</param>
         public static void RenderTo(this Control source, Stream destination, double dpi = 96)
         {
-            var visual = Avalonia.Rendering.Composition.ElementComposition.GetElementVisual(source);
-            var transform = visual?.TryGetServerGlobalTransform();
+            var transform = source.TransformToVisual(null);
             if (transform == null)
                 return;
 
