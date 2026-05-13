@@ -3,8 +3,8 @@
   <metadata>
     <id>InProcess.DevTools</id>
     <version>12.0.2</version>
-    <authors>Felipe Quintella (felipe [at] quintella [dot] com)</authors>
-    <owners>Felipe Quintella (felipe [at] quintella [dot] com)</owners>
+    <authors>Felipe Quintella</authors>
+    <owners>Felipe Quintella</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ffquintella/InProcess.DevTools</projectUrl>
