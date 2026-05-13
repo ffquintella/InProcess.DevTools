@@ -24,7 +24,7 @@ build:
 pack: build
 	@echo "Packaging NuGet..."
 	@mkdir -p $(OUTPUT_DIR)
-	@nuget pack $(NUSPEC_FILE) -OutputDirectory $(OUTPUT_DIR)
+	@dotnet pack $(PROJECT_FILE) -c $(CONFIGURATION) -o $(OUTPUT_DIR) /p:NuspecFile=../../$(NUSPEC_FILE)
 
 help:
 	@echo "Available targets:"
