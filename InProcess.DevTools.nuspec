@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>InProcess.DevTools</id>
-    <version>12.0.1</version>
-    <authors>Felipe Quintella</authors>
-    <owners>Felipe Quintella</owners>
+    <version>12.0.2</version>
+    <authors>Felipe Quintella (felipe [at] quintella [dot] com)</authors>
+    <owners>Felipe Quintella (felipe [at] quintella [dot] com)</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ffquintella/InProcess.DevTools</projectUrl>

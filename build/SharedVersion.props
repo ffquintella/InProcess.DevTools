@@ -3,8 +3,8 @@
 
   <PropertyGroup>
     <Product>InProcess.DevTools</Product>
-    <Version>12.0.1$(CIVersionSuffix)</Version>
-    <Authors>Felipe Quintella</Authors>
+    <Version>12.0.2$(CIVersionSuffix)</Version>
+    <Authors>Felipe Quintella (felipe [at] quintella [dot] com)</Authors>
     <Copyright>Copyright 2026-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; Felipe Quintella</Copyright>
     <PackageProjectUrl>https://github.com/ffquintella/InProcess.DevTools</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ffquintella/InProcess.DevTools</RepositoryUrl>
