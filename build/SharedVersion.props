@@ -2,26 +2,26 @@
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <Product>Avalonia</Product>
-    <Version>11.3.999$(CIVersionSuffix)</Version>
-    <Authors>Avalonia Team</Authors>
-    <Copyright>Copyright 2013-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; The AvaloniaUI Project</Copyright>
-    <PackageProjectUrl>https://avaloniaui.net/?utm_source=nuget&amp;utm_medium=referral&amp;utm_content=project_homepage_link</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/AvaloniaUI/Avalonia.Controls.DataGrid</RepositoryUrl>
+    <Product>InProcess.DevTools</Product>
+    <Version>12.0.0$(CIVersionSuffix)</Version>
+    <Authors>Felipe Quintella</Authors>
+    <Copyright>Copyright 2013-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; The AvaloniaUI Project &amp; Felipe Quintella</Copyright>
+    <PackageProjectUrl>https://github.com/ffquintella/InProcess.DevTools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ffquintella/InProcess.DevTools</RepositoryUrl>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Icon.png</PackageIcon>
-    <PackageDescription>Avalonia is a cross-platform UI framework for .NET providing a flexible styling system and supporting a wide range of Operating Systems such as Windows, Linux, macOS and with experimental support for Android, iOS and WebAssembly.</PackageDescription>
-    <PackageTags>avalonia;avaloniaui;mvvm;rx;reactive extensions;android;ios;mac;forms;wpf;net;netstandard;net461;uwp;xamarin</PackageTags>
-    <PackageReleaseNotes>https://github.com/AvaloniaUI/Avalonia.Controls.DataGrid/releases</PackageReleaseNotes>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageDescription>InProcess.DevTools - Avalonia 12+ compatible DevTools fork. Provides in-process developer tools for inspecting visual tree, styles, and properties.</PackageDescription>
+    <PackageTags>avalonia;devtools;diagnostics;debugging;inspector</PackageTags>
+    <PackageReleaseNotes>https://github.com/ffquintella/InProcess.DevTools/releases</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/avalonia.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)/../readme.md" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)/../README.md" Pack="true" PackagePath="/" Visible="false" />
     <None Include="$(MSBuildThisFileDirectory)/Assets/Icon.png" Pack="true" PackagePath="/" Visible="false"/>
   </ItemGroup>
 
