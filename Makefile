@@ -4,7 +4,9 @@ PROJECT_FILE = src/InProcess.DevTools/InProcess.DevTools.csproj
 NUSPEC_FILE = InProcess.DevTools.nuspec
 OUTPUT_DIR = artifacts
 
-.PHONY: all clean build pack
+.PHONY: all clean build pack help
+
+default: help
 
 all: clean build pack
 
