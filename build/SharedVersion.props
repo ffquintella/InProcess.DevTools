@@ -5,7 +5,7 @@
     <Product>InProcess.DevTools</Product>
     <Version>12.0.1$(CIVersionSuffix)</Version>
     <Authors>Felipe Quintella</Authors>
-    <Copyright>Copyright 2013-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; The AvaloniaUI Project &amp; Felipe Quintella</Copyright>
+    <Copyright>Copyright 2026-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; Felipe Quintella</Copyright>
     <PackageProjectUrl>https://github.com/ffquintella/InProcess.DevTools</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ffquintella/InProcess.DevTools</RepositoryUrl>
     <NoWarn>$(NoWarn);CS1591</NoWarn>

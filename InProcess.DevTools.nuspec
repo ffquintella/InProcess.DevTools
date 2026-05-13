@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/ffquintella/InProcess.DevTools</projectUrl>
     <description>InProcess.DevTools - Avalonia 12+ compatible DevTools fork. Provides in-process developer tools for inspecting visual tree, styles, and properties.</description>
     <releaseNotes>https://github.com/ffquintella/InProcess.DevTools/releases</releaseNotes>
-    <copyright>Copyright 2013-2026 The AvaloniaUI Project &amp; Felipe Quintella</copyright>
+    <copyright>Copyright 2026-2026 Felipe Quintella</copyright>
     <tags>avalonia devtools diagnostics debugging inspector</tags>
     <readme>README.md</readme>
     <icon>Icon.png</icon>
