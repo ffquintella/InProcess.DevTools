@@ -17,7 +17,7 @@ namespace InProcess.DevTools
         /// <param name="dpi">Dpi quality.</param>
         public static void RenderTo(this Control source, Stream destination, double dpi = 96)
         {
-            var transform = source.TransformToVisual(null);
+            var transform = source.TransformToVisual(source.GetVisualRoot()!);
             if (transform == null)
                 return;
 

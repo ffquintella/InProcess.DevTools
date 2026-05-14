@@ -30,7 +30,7 @@ namespace InProcess.DevTools.ViewModels
         private bool _shouldVisualizeMarginPadding = true;
         private bool _freezePopups;
         private string? _pointerOverElementName;
-        private IInputRoot? _pointerOverRoot;
+        private TopLevel? _pointerOverRoot;
         private IScreenshotHandler? _screenshotHandler;
         private bool _showPropertyType;
         private bool _showImplementedInterfaces;
@@ -52,7 +52,7 @@ namespace InProcess.DevTools.ViewModels
 
             if (root is TopLevel topLevel)
             {
-                _pointerOverRoot = (IInputRoot)topLevel;
+                _pointerOverRoot = topLevel;
                 // In Avalonia 11+, we can't easily get a global PointerOverElement property from TopLevel.
                 // We'll use the PointerMoved event instead or similar.
                 _pointerOverSubscription = topLevel.AddDisposableHandler(
@@ -64,7 +64,7 @@ namespace InProcess.DevTools.ViewModels
             }
             else if (TopLevel.GetTopLevel(root as Visual) is TopLevel tl)
             {
-                _pointerOverRoot = (IInputRoot)tl;
+                _pointerOverRoot = tl;
                 _pointerOverSubscription = tl.AddDisposableHandler(
                     InputElement.PointerMovedEvent,
                     (s, e) => PointerOverElement = tl.InputHitTest(e.GetPosition(tl)),
@@ -219,7 +219,7 @@ namespace InProcess.DevTools.ViewModels
             private set { RaiseAndSetIfChanged(ref _focusedControl, value); }
         }
 
-        public IInputRoot? PointerOverRoot
+        public TopLevel? PointerOverRoot
         {
             get => _pointerOverRoot;
             private set => RaiseAndSetIfChanged(ref _pointerOverRoot, value);
