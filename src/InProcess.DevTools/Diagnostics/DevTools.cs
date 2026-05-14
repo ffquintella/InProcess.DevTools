@@ -8,6 +8,7 @@ using InProcess.DevTools.Views;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
 using Avalonia.Interactivity;
+using InProcess.DevTools.Mcp;
 
 namespace InProcess.DevTools
 {
@@ -26,6 +27,9 @@ namespace InProcess.DevTools
 
         public static IDisposable Attach(TopLevel root, DevToolsOptions options)
         {
+            root = root ?? throw new ArgumentNullException(nameof(root));
+            var result = new System.Reactive.Disposables.CompositeDisposable(2);
+
             void PreviewKeyDown(object? sender, KeyEventArgs e)
             {
                 if (options.Gesture.Matches(e))
@@ -34,10 +38,17 @@ namespace InProcess.DevTools
                 }
             }
 
-            return (root ?? throw new ArgumentNullException(nameof(root))).AddDisposableHandler(
+            result.Add(root.AddDisposableHandler(
                 InputElement.KeyDownEvent,
                 PreviewKeyDown,
-                RoutingStrategies.Tunnel);
+                RoutingStrategies.Tunnel));
+
+            if (options.EnableMcpServer)
+            {
+                result.Add(new InProcessDevToolsMcpServer(new SingleViewTopLevelGroup(root), options.McpServer));
+            }
+
+            return result;
         }
 
         public static IDisposable Open(TopLevel root, DevToolsOptions options) =>
@@ -63,13 +74,19 @@ namespace InProcess.DevTools
                     throw new ArgumentNullException(nameof(application), "DevTools can only attach to applications that support IClassicDesktopStyleApplicationLifetime.");
                 }
 
+                var topLevelGroup = new ClassicDesktopStyleApplicationLifetimeTopLevelGroup(lifeTime);
+
+                if (options.EnableMcpServer)
+                {
+                    result.Add(new InProcessDevToolsMcpServer(topLevelGroup, options.McpServer));
+                }
+
                 result.Add(Window.KeyUpEvent.AddClassHandler<Window>((sender, e) =>
                 {
                     if (options.Gesture.Matches(e))
                     {
                         openedDisposable.Disposable =
-                            Open(new ClassicDesktopStyleApplicationLifetimeTopLevelGroup(lifeTime), options,
-                                sender as Window, application);
+                            Open(topLevelGroup, options, sender as Window, application);
                         e.Handled = true;
                     }
                 }, RoutingStrategies.Tunnel, handledEventsToo: true));

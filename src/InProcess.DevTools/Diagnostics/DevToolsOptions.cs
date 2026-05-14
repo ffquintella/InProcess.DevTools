@@ -62,5 +62,16 @@ namespace InProcess.DevTools
         /// Gets or inits the <see cref="HotKeyConfiguration" /> used to activate DevTools features
         /// </summary>
         public HotKeyConfiguration HotKeys { get; init; } = new();
+
+        /// <summary>
+        /// Gets or sets whether the localhost MCP server should be started when DevTools are attached.
+        /// The default value is false.
+        /// </summary>
+        public bool EnableMcpServer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the localhost MCP server settings.
+        /// </summary>
+        public McpServerOptions McpServer { get; set; } = new();
     }
 }
