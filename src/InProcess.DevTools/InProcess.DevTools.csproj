@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>$(AvsCurrentTargetFramework);$(AvsLegacyTargetFrameworks)</TargetFrameworks>
+    <TargetFramework>$(AvsCurrentTargetFramework)</TargetFramework>
     <RootNamespace>Avalonia</RootNamespace>
     <AssemblyName>Avalonia.Diagnostics</AssemblyName>
     <PackageId>InProcess.DevTools</PackageId>

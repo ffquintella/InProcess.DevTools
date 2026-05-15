@@ -16,13 +16,6 @@
     <icon>Icon.png</icon>
     <repository type="git" url="https://github.com/ffquintella/InProcess.DevTools" />
     <dependencies>
-      <group targetFramework="net8.0">
-        <dependency id="Avalonia" version="11.1.0" exclude="Build,Analyzers" />
-        <dependency id="Avalonia.Themes.Simple" version="11.1.0" exclude="Build,Analyzers" />
-        <dependency id="Avalonia.Controls.ColorPicker" version="11.1.0" exclude="Build,Analyzers" />
-        <dependency id="Avalonia.Controls.DataGrid" version="11.1.0" exclude="Build,Analyzers" />
-        <dependency id="System.Reactive" version="6.0.0" exclude="Build,Analyzers" />
-      </group>
       <group targetFramework="net10.0">
         <dependency id="Avalonia" version="11.1.0" exclude="Build,Analyzers" />
         <dependency id="Avalonia.Themes.Simple" version="11.1.0" exclude="Build,Analyzers" />
@@ -33,7 +26,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="src/InProcess.DevTools/bin/Release/net8.0/Avalonia.Diagnostics.dll" target="lib/net8.0" />
     <file src="src/InProcess.DevTools/bin/Release/net10.0/Avalonia.Diagnostics.dll" target="lib/net10.0" />
     <file src="README.md" target="/" />
     <file src="build/Assets/Icon.png" target="/" />
