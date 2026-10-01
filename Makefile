@@ -5,7 +5,7 @@ NUSPEC_FILE = InProcess.DevTools.nuspec
 SAMPLE_PROJECT = samples/InProcess.DevTools.Sample/InProcess.DevTools.Sample.csproj
 OUTPUT_DIR = artifacts
 
-.PHONY: all clean build pack help run-sample
+.PHONY: all clean build pack help run-sample test
 
 default: help
 
@@ -34,10 +34,15 @@ run-sample:
 	@echo "Running sample..."
 	@dotnet run --project $(SAMPLE_PROJECT)
 
+test:
+	@echo "Running tests..."
+	@dotnet run --project tests/InProcess.DevTools.Tests
+
 help:
 	@echo "Available targets:"
 	@echo "  all          - Clean, build and pack"
 	@echo "  clean        - Remove build artifacts"
+	@echo "  test         - Run the headless MCP acceptance tests"
 	@echo "  build        - Build the project in Release mode"
 	@echo "  pack         - Create the NuGet package using nuspec"
 	@echo "  run-sample   - Build and run the included sample project"

@@ -117,7 +117,17 @@ this.AttachDevTools(new DevToolsOptions()
         EnableScreenshots = true,
         EnableNavigation = true,
         EnableEvents = true,
-        EnableStateMutation = true
+        EnableStateMutation = true,
+
+        // Agent-driving capabilities, all off by default (see the table below).
+        EnableEditing = true,
+        EnableInput = true,
+        EnableSelection = true,
+        EnableMutationEvents = true,
+        EnableValueInspection = true,
+        EnableWaiting = true,
+        EnableCommands = true,
+        EnableFileOutput = true
     }
 });
 #endif
@@ -125,27 +135,81 @@ this.AttachDevTools(new DevToolsOptions()
 
 MCP capabilities are controlled by `McpServerOptions`:
 
-- `EnableDomInspection`: exposes `devtools_list_roots`, `devtools_get_dom`, and `devtools_get_tree`. Default: `true`.
+- `EnableDomInspection`: exposes `devtools_list_roots`, `devtools_get_dom`, `devtools_get_tree` and `devtools_find`. Default: `true`.
 - `EnableScreenshots`: exposes `devtools_capture_screenshot`. Default: `false`.
-- `EnableNavigation`: exposes `devtools_focus` and `devtools_click`. Default: `false`.
+- `EnableNavigation`: exposes `devtools_focus`, `devtools_click` and `devtools_double_click`. Default: `false`.
 - `EnableEvents`: exposes `devtools_raise_event`. Default: `false`.
 - `EnableStateMutation`: exposes `devtools_set_property`. Default: `false`.
+- `EnableMutationEvents`: lets `devtools_set_property` take `raise_events: true`. Needs `EnableStateMutation`. Default: `false`.
+- `EnableEditing`: exposes `devtools_begin_edit`, `devtools_commit_edit`, `devtools_cancel_edit`. Default: `false`.
+- `EnableInput`: exposes `devtools_send_keys` and `devtools_type_text`. Default: `false`.
+- `EnableSelection`: exposes `devtools_select_item`. Default: `false`.
+- `EnableValueInspection`: exposes `devtools_get_property`, `devtools_get_items`, `devtools_get_datacontext`. Default: `false`.
+- `EnableWaiting`: exposes `devtools_wait_idle` and the `wait_idle` option of action tools. Default: `false`.
+- `EnableCommands`: exposes `devtools_invoke_command`. Default: `false`.
+- `EnableFileOutput`: allows `output: "file"` (temp-file output for screenshots and JSON dumps). Default: `false`.
+- `AllowInReleaseBuilds`: the capabilities from `EnableMutationEvents` down, plus `devtools_double_click`, are **silently disabled when the host application is an optimized (Release) build**, even if their flag is set, unless this is `true`. Default: `false`.
 
 Disabled capabilities are not advertised in `tools/list`, and direct calls to disabled tools are rejected.
 
-Depending on those flags, the MCP endpoint exposes these tools:
+#### Addressing nodes
 
-- `devtools_get_status`: returns the endpoint and attached root summary.
-- `devtools_list_roots`: lists attached Avalonia top-level roots.
-- `devtools_get_dom`: returns a DOM-like visual or logical tree with stable `rootIndex` and `path` selectors, bounds, text, classes, visibility, enabled state, and common control state.
-- `devtools_get_tree`: returns a compact visual or logical tree snapshot.
-- `devtools_capture_screenshot`: captures a target control as PNG and returns base64 data.
-- `devtools_focus`: moves keyboard focus to a target control.
-- `devtools_click`: navigates the application by invoking supported click behavior on `Button`, `ToggleButton`, and `MenuItem`, or focusing a generic `Control`.
-- `devtools_raise_event`: raises supported high-level events. Current values are `click` and `focus`.
-- `devtools_set_property`: manipulates state by setting writable public CLR properties such as `Text`, `IsChecked`, `SelectedIndex`, or `Value`.
+A node is identified by `(tree, rootIndex, path)`:
 
-Use `devtools_get_dom` first to find the target `rootIndex` and `path`, then pass those values to screenshot, focus, click, event, or property tools. Paths are slash-delimited child indexes from the selected tree; an empty path targets the root.
+- `tree` is `visual` (default) or `logical`. The two trees number their children differently, so reuse the tree that produced a path.
+- `rootIndex` is the top-level index from `devtools_list_roots`. It is **never** part of `path`.
+- `path` is a slash-separated list of zero-based child indexes below that root. `""` is the root, `"0"` its first child, `"0/2/1"` child 1 of child 2 of child 0.
+
+Take paths from `devtools_get_dom`, `devtools_get_tree` or `devtools_find`. A wrong path is reported as a tool result with `isError: true` and a message such as `path '0/0/99/3' not found ...: closest valid prefix: '0/0'`.
+
+#### Tools
+
+Always available:
+
+- `devtools_get_status`: endpoint and attached root summary.
+
+Inspection (`EnableDomInspection`):
+
+- `devtools_list_roots`: attached top-level roots.
+- `devtools_get_dom`: DOM-like snapshot with `rootIndex`/`path`, bounds, text, classes, state and `childCount`. Extra arguments: `path` (start node; `maxDepth` counts from it, up to 64, so deep panels get their own budget), `filter` (`types[]`, `name`, `textContains`, `isVisible`, `interactiveOnly`; the result keeps matches plus their ancestors), `maxNodes` (default 5000) and `output`. Results carry `truncated` (node budget hit) and `depthLimited` (children cut by `maxDepth`, flagged per node with `childrenTruncated`).
+- `devtools_get_tree`: compact snapshot, same `path`/`filter`/`maxNodes`/`output` options.
+- `devtools_find`: `query` (`text`, `#Name`, `type:Button`, `text:Save`) and/or `filter`; returns matching `rootIndex`/`path`.
+
+Screenshots (`EnableScreenshots`):
+
+- `devtools_capture_screenshot`: PNG of a control. `scale`, `region {x,y,width,height}`, `dpi`, and `output: "file"` which writes to a temp file and returns `{path, bytes, width, height}` instead of ~200k characters of inline base64.
+
+Navigation and events:
+
+- `devtools_focus`, `devtools_click` (Button, ToggleButton/CheckBox, MenuItem, TabItem, list/combo items, DataGridRow/Cell), `devtools_double_click` (also starts editing an editable DataGrid cell), `devtools_raise_event`.
+- `devtools_set_property`: sets a writable CLR property. With `raise_events: true` the notifications user input would raise (`SelectionChanged`, `TextChanged`, `IsCheckedChanged`) are guaranteed and listed in `eventsRaised`/`eventsSynthesized`.
+- `devtools_select_item`: user-like selection by `index`, `value` or `text` in ComboBox, ListBox, TabControl and DataGrid.
+- `devtools_invoke_command`: runs the `ICommand` in `commandProperty` (default `Command`) with its parameter, honouring `CanExecute`.
+
+DataGrid editing (`EnableEditing`): `devtools_begin_edit(path, row, column)` creates the cell's editing control and returns its `editingPath`, which `get_dom`/`find`/`select_item`/`type_text` accept immediately; then `devtools_commit_edit` or `devtools_cancel_edit`.
+
+Keyboard (`EnableInput`):
+
+- `devtools_send_keys(path | focused, keys)`: text plus `{Enter}`, `{Tab}`, `{Escape}`, `{F2}`, arrows and chords such as `{Ctrl+A}`, `{Shift+Tab}`; `{{` and `}}` are literal braces.
+- `devtools_type_text(path, text, clear?)`: real `TextInput` events, so bindings and validation fire.
+
+Reads (`EnableValueInspection`):
+
+- `devtools_get_property(path, propertyName)`: dotted names allowed (`SelectedItem.Name`); `Count` and `$type` segments; aliases `DataContextType`, `ItemsSourceCount`.
+- `devtools_get_items(path)`: realised items of an ItemsControl, ComboBox, TabControl or DataGrid, with display text per column.
+- `devtools_get_datacontext(path, properties[])`: named view-model properties; without `properties` it lists the readable names.
+
+Timing (`EnableWaiting`): `devtools_wait_idle(timeoutMs, settleMs, conditions[])` waits for the dispatcher to drain and for conditions (`exists`, `not_exists`, `visible`, `property_equals`). Any action tool accepts `wait_idle: true`.
+
+#### Secrets
+
+`TextBox` controls with a `PasswordChar`, controls (and their descendants) marked with `McpRedaction.IsSensitive="True"`, DataGrid columns or view-model properties whose name looks secret (password, secret, token, api key, ...) and view-model values equal to a password box's text are always returned as `***REDACTED***`, in DOM text, `get_property`, `get_items`, `get_datacontext`, `find`, `wait_idle` and `set_property` echoes. Screenshots show what is on screen, so mark nothing sensitive in a captured area that you do not want to share.
+
+```xml
+<TextBox xmlns:dt="using:InProcess.DevTools" dt:McpRedaction.IsSensitive="True" />
+```
+
+None of the tools evaluate scripts or call arbitrary methods: reads only evaluate public property getters, and `devtools_invoke_command` only runs commands that the UI already exposes.
 
 #### Configure Codex
 Start your Avalonia application with `EnableMcpServer = true`, then add the HTTP MCP server to `~/.codex/config.toml`:

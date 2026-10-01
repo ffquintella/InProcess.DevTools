@@ -7,4 +7,5 @@
   </Folder>
   <Project Path="samples/InProcess.DevTools.Sample/InProcess.DevTools.Sample.csproj" />
   <Project Path="src/InProcess.DevTools/InProcess.DevTools.csproj" />
+  <Project Path="tests/InProcess.DevTools.Tests/InProcess.DevTools.Tests.csproj" />
 </Solution>

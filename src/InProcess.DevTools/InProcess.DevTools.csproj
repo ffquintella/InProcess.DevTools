@@ -18,6 +18,10 @@
     <PackageReference Include="System.Reactive" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="InProcess.DevTools.Tests" Key="$(AvaloniaPublicKey)" />
+  </ItemGroup>
+
   <Import Project="../../build/SharedVersion.props" />
 
 </Project>

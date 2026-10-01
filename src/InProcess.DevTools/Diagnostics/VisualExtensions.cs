@@ -17,13 +17,28 @@ namespace InProcess.DevTools
         /// <param name="dpi">Dpi quality.</param>
         public static void RenderTo(this Control source, Stream destination, double dpi = 96)
         {
+            source.RenderTo(destination, dpi, null, out _);
+        }
+
+        /// <summary>
+        /// Render control (or a region of it) to the destination stream.
+        /// </summary>
+        /// <param name="source">Control to be rendered.</param>
+        /// <param name="destination">Destination stream.</param>
+        /// <param name="dpi">Dpi quality. The output pixel size is the size in device-independent units scaled by dpi / 96.</param>
+        /// <param name="region">Optional region, in the control's own coordinates. Null renders the whole control.</param>
+        /// <param name="pixelSize">The size in pixels of the written image.</param>
+        public static void RenderTo(this Control source, Stream destination, double dpi, Rect? region, out PixelSize pixelSize)
+        {
+            pixelSize = default;
             var transform = source.TransformToVisual(source.GetVisualRoot()!);
             if (transform == null)
                 return;
 
-            var rect = new Rect(source.Bounds.Size).TransformToAABB(transform.Value);
+            var rect = (region ?? new Rect(source.Bounds.Size)).TransformToAABB(transform.Value);
             var top = rect.TopLeft;
-            var pixelSize = new PixelSize((int)rect.Width, (int)rect.Height);
+            var scale = dpi / 96d;
+            pixelSize = new PixelSize(Math.Max(1, (int)Math.Ceiling(rect.Width * scale)), Math.Max(1, (int)Math.Ceiling(rect.Height * scale)));
             var dpiVector = new Vector(dpi, dpi);
 
             // get Visual root
