@@ -4,6 +4,8 @@ PROJECT_FILE = src/InProcess.DevTools/InProcess.DevTools.csproj
 NUSPEC_FILE = InProcess.DevTools.nuspec
 SAMPLE_PROJECT = samples/InProcess.DevTools.Sample/InProcess.DevTools.Sample.csproj
 OUTPUT_DIR = artifacts
+# Must match BaseOutputPath in Directory.Build.props (Unix)
+BIN_DIR = /tmp/InProcess.DevTools/bin/InProcess.DevTools/$(CONFIGURATION)/net10.0
 
 .PHONY: all clean build pack help run-sample test
 
@@ -28,7 +30,7 @@ build:
 pack: build
 	@echo "Packaging NuGet..."
 	@mkdir -p $(OUTPUT_DIR)
-	@dotnet pack $(PROJECT_FILE) -c $(CONFIGURATION) -o $(OUTPUT_DIR) /p:NuspecFile=../../$(NUSPEC_FILE)
+	@dotnet pack $(PROJECT_FILE) -c $(CONFIGURATION) -o $(OUTPUT_DIR) /p:NuspecFile=../../$(NUSPEC_FILE) /p:NuspecProperties="dllpath=$(BIN_DIR)/Avalonia.Diagnostics.dll"
 
 run-sample:
 	@echo "Running sample..."

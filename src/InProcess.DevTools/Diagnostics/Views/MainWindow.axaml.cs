@@ -20,7 +20,6 @@ namespace InProcess.DevTools.Views
 {
     internal partial class MainWindow : Window, IStyleHost
     {
-        private readonly IDisposable? _inputSubscription;
         private readonly HashSet<Popup> _frozenPopupStates;
         private AvaloniaObject? _root;
         private PixelPoint _lastPointerPosition;
@@ -92,7 +91,6 @@ namespace InProcess.DevTools.Views
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _inputSubscription?.Dispose();
 
             foreach (var state in _frozenPopupStates)
             {
